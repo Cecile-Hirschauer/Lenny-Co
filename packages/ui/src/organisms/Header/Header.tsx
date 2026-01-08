@@ -27,7 +27,7 @@ export const Header = ({ logoSrc, links, onLoginClick, onSignupClick }: HeaderPr
 
         {/* LOGO */}
         <div className={styles.logoWrapper}>
-          <img src={logoSrc} alt="Logo" style={{ height: 40 }} />
+          <img src={logoSrc} alt="Logo" className={styles.logo} />
         </div>
 
         {/* --- NAVIGATION DESKTOP --- */}
@@ -46,7 +46,9 @@ export const Header = ({ logoSrc, links, onLoginClick, onSignupClick }: HeaderPr
         {/* --- MOBILE --- */}
 
         {/* 1. L'Atome Burger */}
-        <BurgerButton isOpen={isMenuOpen} onClick={toggleMenu} />
+        <div className={styles.burgerWrapper}>
+          <BurgerButton isOpen={isMenuOpen} onClick={toggleMenu} />
+        </div>
 
         {/* 2. Le Menu Overlay (Visible uniquement si isMenuOpen est true) */}
         <div className={`${styles.mobileMenu} ${isMenuOpen ? styles.mobileMenuOpen : ''}`}>

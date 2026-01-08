@@ -1,31 +1,26 @@
+import Image from 'next/image';
 import styles from './page.module.css';
 // Import des composants depuis votre Design System
-import { Button, Typography, Header } from '@lenny/ui';
+import { Button, Typography } from '@lenny/ui';
+import { HeaderClient } from './components/HeaderClient';
 
 export default function Homepage() {
   return (
     <main className={styles.main}>
 
       {/* HEADER via Design System */}
-      <Header
-        logoSrc="/images/logo.png"
-        links={[
-          { label: 'Accueil', href: '#' },
-          { label: 'A propos', href: '#' },
-          { label: 'Contact', href: '#' },
-        ]}
-        onLoginClick={() => console.log('Login')}
-        onSignupClick={() => console.log('Signup')}
-      />
+      <HeaderClient />
 
       <div className={styles.container}>
 
         {/* --- HERO SECTION --- */}
         <section className={styles.hero}>
           <div className={styles.heroContent}>
-            <Typography variant="headingXL" component="h1">
-              Apprendre à lire en s&apos;amusant
-            </Typography>
+            <h1 className={styles.heroTitle}>
+              <Typography variant="headingXL" component="span">
+                Apprendre à lire en s&apos;amusant
+              </Typography>
+            </h1>
 
             <div style={{ marginTop: 24, marginBottom: 32 }}>
               <Typography variant="bodyLG">
@@ -35,21 +30,29 @@ export default function Homepage() {
             </div>
 
             <div className={styles.heroButtons}>
-              <Button label="Commencer" variant="primary" />
-              <Button label="Connexion" variant="outline" />
+              <Button label="Commencer l'aventure" variant="primary" />
             </div>
           </div>
 
           {/* Visuel Mascotte */}
           <div className={styles.heroImage}>
-            <div className={styles.mascotPlaceholder}>🦁</div>
+            <Image
+              src="/images/Lenny&co_mascotte.png"
+              alt="Lenny la mascotte"
+              width={400}
+              height={400}
+              className={styles.mascotImage}
+              loading="lazy"
+            />
           </div>
         </section>
 
         {/* --- FEATURES SECTION --- */}
         <section className={styles.features}>
           <div style={{ textAlign: 'center' }}>
-            <Typography variant="headingLG" component="h2">Pourquoi nous choisir ?</Typography>
+            <span className={styles.sectionTitle}>
+              <Typography variant="headingLG" component="h2">Pourquoi nous choisir ?</Typography>
+            </span>
           </div>
 
           <div className={styles.grid}>
@@ -93,25 +96,27 @@ export default function Homepage() {
       <section className={styles.testimonials}>
         <div className={styles.container}>
           <div style={{ textAlign: 'center', marginBottom: 40 }}>
-            <Typography variant="headingLG" component="h2">Témoignages</Typography>
+            <span className={styles.sectionTitle}>
+              <Typography variant="headingLG" component="h2">Ce qu&apos;ils en pensent</Typography>
+            </span>
           </div>
 
           <div className={styles.testimonialsGrid}>
-            <div className={styles.card}>
+            <div className={styles.testimonialCard}>
               <Typography variant="bodyLG">
-                &quot;Super application...&quot;
+                &quot;Mon fils adore les exercices avec Lenny ! Il progresse chaque jour et redemande à jouer. Merci pour cette application magique !&quot;
               </Typography>
               <div style={{ marginTop: 16 }}>
-                <Typography variant="bodyMD">- Parent</Typography>
+                <Typography variant="bodyMD">- Marie, maman de Lucas (8 ans)</Typography>
               </div>
             </div>
 
-            <div className={styles.card}>
+            <div className={styles.testimonialCard}>
               <Typography variant="bodyLG">
-                &quot;Très utile pour le suivi.&quot;
+                &quot;Enfin une application qui comprend les besoins des enfants dyslexiques. Je la recommande à tous mes patients.&quot;
               </Typography>
               <div style={{ marginTop: 16 }}>
-                <Typography variant="bodyMD">- Orthophoniste</Typography>
+                <Typography variant="bodyMD">- Dr. Sophie Martin, Orthophoniste</Typography>
               </div>
             </div>
           </div>
@@ -122,7 +127,7 @@ export default function Homepage() {
       <footer className={styles.footer}>
         <div className={styles.container}>
           <Typography variant="caption">
-            © 2026 Lenny & Co. Tous droits réservés. | Créé pour les enfants dyslexiques.
+            © 2026 Lenny & Co. Tous droits réservés. | Créé avec amour pour les enfants dyslexiques.
           </Typography>
         </div>
       </footer>
