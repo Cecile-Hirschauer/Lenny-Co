@@ -9,6 +9,7 @@ export interface TypographyProps {
   /** Permet de changer la balise HTML (h1, p, span) sémantiquement */
   component?: keyof JSX.IntrinsicElements;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export const Typography = ({
@@ -16,12 +17,13 @@ export const Typography = ({
   children,
   component,
   className = '',
+  style,
 }: TypographyProps) => {
   // Mapping automatique : si c'est un titre -> h2, sinon p
   const Component = component || (variant.startsWith('heading') ? 'h2' : 'p');
 
   return (
-    <Component className={`${styles.text} ${styles[variant]} ${className}`}>
+    <Component className={`${styles.text} ${styles[variant]} ${className}`} style={style}>
       {children}
     </Component>
   );
