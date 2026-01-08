@@ -1,0 +1,56 @@
+@import '../../ui/token.css';
+
+.container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 80px;
+  background-color: var(--color-surface);
+  border-top: 1px solid #e2e8f0;
+  box-shadow: 0 -4px 6px -1px rgb(0 0 0 / 0.05);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex: 1;
+  height: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-neutral-mid);
+  transition: color 0.2s ease-in-out;
+}
+
+.label {
+  font-family: var(--font-family-base);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  color: var(--color-neutral-mid);
+  transition: all 0.2s ease-in-out;
+}
+
+/* État Actif */
+.itemActive .icon {
+  color: var(--color-primary);
+}
+
+.itemActive .label {
+  color: var(--color-primary);
+  font-weight: var(--weight-bold);
+}
