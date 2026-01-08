@@ -17,6 +17,18 @@
 
 .logoWrapper {
   flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+}
+
+.logo {
+  height: 160px;
+  width: auto;
+  margin: -50px 0;
+}
+
+.burgerWrapper {
+  display: block;
 }
 
 .desktopNav {
@@ -95,6 +107,15 @@
 
 /* Desktop styles */
 @media (min-width: 1024px) {
+  .logo {
+    height: 200px;
+    margin: -70px 0;
+  }
+
+  .burgerWrapper {
+    display: none;
+  }
+
   .desktopNav {
     display: flex;
   }
