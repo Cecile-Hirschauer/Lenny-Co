@@ -1,0 +1,44 @@
+@import '../../ui/token.css';
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background-color: transparent;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.greeting {
+  display: flex;
+  flex-direction: column;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+}
+
+.settingsButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--color-neutral-mid);
+  transition: all 0.2s ease-in-out;
+}
+
+.settingsButton:hover {
+  background-color: var(--color-bg-default);
+  color: var(--color-neutral-dark);
+}

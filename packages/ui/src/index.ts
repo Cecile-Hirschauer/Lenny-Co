@@ -17,3 +17,13 @@ export type { MissionCardProps } from './molecules/MissionCard/MissionCard';
 
 export { StatCard } from './molecules/StatCard/StatCard';
 export type { StatCardProps } from './molecules/StatCard/StatCard';
+
+// Organismes
+export { BottomNavigation } from './organisms/BottomNavigation/BottomNavigation';
+export type { BottomNavigationProps, NavItem } from './organisms/BottomNavigation/BottomNavigation';
+
+export { Header } from './organisms/Header/Header';
+export type { HeaderProps } from './organisms/Header/Header';
+
+export { DashboardLayout } from './organisms/DashboardLayout/DashboardLayout';
+export type { DashboardLayoutProps } from './organisms/DashboardLayout/DashboardLayout';
