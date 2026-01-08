@@ -1,0 +1,81 @@
+/* Import des tokens */
+@import '../../ui/token.css';
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Dimensions & Forme */
+  height: 48px; /* Cible tactile confortable */
+  padding: 0 32px;
+  border-radius: var(--radius-btn); /* Forme Pill */
+  border: 2px solid transparent; /* Pour éviter le saut de taille sur le variant outline */
+
+  /* Typographie */
+  font-family: var(--font-family-base);
+  font-size: var(--text-btn);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-none);
+
+  /* Interaction */
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+}
+
+/* --- VARIANTS --- */
+
+/* 1. Primary (Bleu plein) */
+.primary {
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+}
+
+.primary:hover:not(:disabled) {
+  /* On assombrit légèrement */
+  filter: brightness(0.9);
+  transform: translateY(-1px);
+}
+
+.primary:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+/* 2. Secondary (Orange - Mascotte) */
+.secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-surface);
+}
+
+.secondary:hover:not(:disabled) {
+  filter: brightness(0.95);
+  transform: translateY(-1px);
+}
+
+.secondary:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+/* 3. Outline (Bordure bleue) */
+.outline {
+  background-color: transparent;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.outline:hover:not(:disabled) {
+  background-color: #eff6ff; /* Bleu très pâle */
+}
+
+.outline:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+/* --- ÉTAT DÉSACTIVÉ --- */
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  filter: grayscale(1);
+}
