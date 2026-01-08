@@ -1,0 +1,279 @@
+/* ============================================
+   Dashboard Page - Mobile First CSS Modules
+   ============================================ */
+
+/* ============================================
+   SECTIONS
+   ============================================ */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sectionTitle {
+  color: #1E293B;
+}
+
+/* ============================================
+   CHILD PROFILE CARD
+   ============================================ */
+.profileCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background-color: #FFFFFF;
+  border-radius: 16px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.profileInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.profileName {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1E293B;
+}
+
+.onlineStatus {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #22C55E;
+}
+
+.onlineDot {
+  width: 8px;
+  height: 8px;
+  background-color: #22C55E;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* ============================================
+   PROGRESS CHART PLACEHOLDER
+   ============================================ */
+.chartCard {
+  background-color: #FFFFFF;
+  border-radius: 16px;
+  border: 1px solid #E2E8F0;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.chartHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.chartTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1E293B;
+}
+
+.chartPeriod {
+  font-size: 13px;
+  color: #64748B;
+  padding: 4px 10px;
+  background-color: #F1F5F9;
+  border-radius: 8px;
+}
+
+.chartPlaceholder {
+  height: 180px;
+  background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #3B82F6;
+}
+
+.chartBars {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 80px;
+}
+
+.chartBar {
+  width: 24px;
+  background: linear-gradient(180deg, #3B82F6 0%, #60A5FA 100%);
+  border-radius: 4px 4px 0 0;
+  animation: grow 1s ease-out forwards;
+}
+
+@keyframes grow {
+  from { height: 0; }
+}
+
+.chartBar:nth-child(1) { height: 40%; animation-delay: 0.1s; }
+.chartBar:nth-child(2) { height: 65%; animation-delay: 0.2s; }
+.chartBar:nth-child(3) { height: 45%; animation-delay: 0.3s; }
+.chartBar:nth-child(4) { height: 80%; animation-delay: 0.4s; }
+.chartBar:nth-child(5) { height: 55%; animation-delay: 0.5s; }
+.chartBar:nth-child(6) { height: 90%; animation-delay: 0.6s; }
+.chartBar:nth-child(7) { height: 70%; animation-delay: 0.7s; }
+
+.chartLabel {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* ============================================
+   ALERTS SECTION
+   ============================================ */
+.alertsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ============================================
+   STATS GRID (Right Sidebar)
+   ============================================ */
+.statsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+/* ============================================
+   RECENT ACTIVITY
+   ============================================ */
+.activityCard {
+  background-color: #FFFFFF;
+  border-radius: 16px;
+  border: 1px solid #E2E8F0;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.activityTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1E293B;
+  margin-bottom: 16px;
+}
+
+.activityList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.activityItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background-color: #F8FAFC;
+  border-radius: 10px;
+  transition: background-color 0.2s;
+}
+
+.activityItem:hover {
+  background-color: #F1F5F9;
+}
+
+.activityIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.activityIconSuccess {
+  background-color: #DCFCE7;
+  color: #16A34A;
+}
+
+.activityIconPrimary {
+  background-color: #DBEAFE;
+  color: #2563EB;
+}
+
+.activityIconWarning {
+  background-color: #FEF3C7;
+  color: #D97706;
+}
+
+.activityContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.activityText {
+  font-size: 14px;
+  color: #1E293B;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.activityTime {
+  font-size: 12px;
+  color: #64748B;
+  margin-top: 2px;
+}
+
+/* ============================================
+   RESPONSIVE - Tablet
+   ============================================ */
+@media (min-width: 768px) {
+  .statsGrid {
+    gap: 16px;
+  }
+
+  .chartPlaceholder {
+    height: 220px;
+  }
+
+  .chartBar {
+    width: 32px;
+  }
+}
+
+/* ============================================
+   RESPONSIVE - Desktop
+   ============================================ */
+@media (min-width: 1024px) {
+  .profileCard {
+    padding: 24px;
+  }
+
+  .chartCard {
+    padding: 24px;
+  }
+
+  .activityCard {
+    padding: 24px;
+  }
+}

@@ -1,0 +1,74 @@
+/* ============================================
+   Signup Page - Mobile First CSS Modules
+   ============================================ */
+
+.page {
+  min-height: 100vh;
+  background-color: #F8FAFC;
+}
+
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 40px 20px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Header Section */
+.header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.subtitle {
+  color: #64748B;
+}
+
+/* Form wrapper */
+.formWrapper {
+  background-color: #FFFFFF;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid #E2E8F0;
+}
+
+/* Features list */
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #E2E8F0;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #475569;
+  font-size: 14px;
+}
+
+.featureIcon {
+  width: 24px;
+  height: 24px;
+  color: #22C55E;
+  flex-shrink: 0;
+}
+
+/* Responsive - Tablet+ */
+@media (min-width: 768px) {
+  .container {
+    padding: 80px 24px;
+  }
+
+  .formWrapper {
+    padding: 32px;
+  }
+}

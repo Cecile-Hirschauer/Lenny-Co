@@ -11,10 +11,50 @@
   border: 1px solid #E2E8F0;
   min-width: 100px;
   text-align: center;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Icon wrapper optionnel */
+.iconWrapper {
+  margin-bottom: 8px;
+  color: var(--color-neutral-mid, #64748B);
 }
 
 /* Gros chiffre (Heading XL) selon specs */
 .value {
-  color: var(--color-primary, #3B82F6);
   margin-bottom: 4px;
+}
+
+/* Label style */
+.label {
+  color: var(--color-neutral-mid, #64748B);
+}
+
+/* ============================================
+   VARIANTS DE COULEUR
+   ============================================ */
+
+/* Primary - Bleu (Défaut) */
+.primary {
+  color: var(--color-primary, #3B82F6);
+}
+
+/* Success - Vert */
+.success {
+  color: #22C55E;
+}
+
+/* Warning - Orange */
+.warning {
+  color: #F59E0B;
+}
+
+/* Neutral - Gris */
+.neutral {
+  color: var(--color-neutral-dark, #1E293B);
 }

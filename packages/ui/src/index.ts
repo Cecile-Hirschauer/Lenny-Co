@@ -22,7 +22,10 @@ export { MissionCard } from './molecules/MissionCard/MissionCard';
 export type { MissionCardProps } from './molecules/MissionCard/MissionCard';
 
 export { StatCard } from './molecules/StatCard/StatCard';
-export type { StatCardProps } from './molecules/StatCard/StatCard';
+export type { StatCardProps, StatCardVariant } from './molecules/StatCard/StatCard';
+
+export { AlertCard } from './molecules/AlertCard/AlertCard';
+export type { AlertCardProps, AlertCardVariant } from './molecules/AlertCard/AlertCard';
 
 export { Modal } from './molecules/Modal/Modal';
 export type { ModalProps } from './molecules/Modal/Modal';
@@ -36,6 +39,9 @@ export type { HeaderProps } from './organisms/Header/Header';
 
 export { DashboardLayout } from './organisms/DashboardLayout/DashboardLayout';
 export type { DashboardLayoutProps } from './organisms/DashboardLayout/DashboardLayout';
+
+export { ParentDashboardLayout } from './organisms/ParentDashboardLayout/ParentDashboardLayout';
+export type { ParentDashboardLayoutProps, SidebarNavItem } from './organisms/ParentDashboardLayout/ParentDashboardLayout';
 
 export { LoginForm } from './organisms/LoginForm/LoginForm';
 export type { LoginFormProps } from './organisms/LoginForm/LoginForm';

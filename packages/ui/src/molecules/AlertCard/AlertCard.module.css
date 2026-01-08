@@ -1,0 +1,146 @@
+/* AlertCard - Container principal */
+.card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  border-left: 4px solid;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Icon wrapper */
+.iconWrapper {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+/* Content */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.message {
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+/* ============================================
+   VARIANT: Danger (Alertes critiques - Rouge)
+   ============================================ */
+.danger {
+  background-color: #FEF2F2;
+  border-left-color: #EF4444;
+}
+
+.danger .iconWrapper {
+  background-color: #FEE2E2;
+  color: #DC2626;
+}
+
+.danger .title {
+  color: #991B1B;
+}
+
+.danger .message {
+  color: #7F1D1D;
+}
+
+/* ============================================
+   VARIANT: Info (Conseils - Bleu)
+   ============================================ */
+.info {
+  background-color: #EFF6FF;
+  border-left-color: #3B82F6;
+}
+
+.info .iconWrapper {
+  background-color: #DBEAFE;
+  color: #2563EB;
+}
+
+.info .title {
+  color: #1E40AF;
+}
+
+.info .message {
+  color: #1E3A8A;
+}
+
+/* ============================================
+   VARIANT: Success (Succès - Vert)
+   ============================================ */
+.success {
+  background-color: #F0FDF4;
+  border-left-color: #22C55E;
+}
+
+.success .iconWrapper {
+  background-color: #DCFCE7;
+  color: #16A34A;
+}
+
+.success .title {
+  color: #166534;
+}
+
+.success .message {
+  color: #14532D;
+}
+
+/* ============================================
+   VARIANT: Warning (Avertissement - Orange)
+   ============================================ */
+.warning {
+  background-color: #FFFBEB;
+  border-left-color: #F59E0B;
+}
+
+.warning .iconWrapper {
+  background-color: #FEF3C7;
+  color: #D97706;
+}
+
+.warning .title {
+  color: #92400E;
+}
+
+.warning .message {
+  color: #78350F;
+}
+
+/* Responsive - Mobile First */
+@media (max-width: 480px) {
+  .card {
+    padding: 14px 16px;
+    gap: 12px;
+  }
+
+  .iconWrapper {
+    width: 36px;
+    height: 36px;
+  }
+
+  .iconWrapper svg {
+    width: 20px;
+    height: 20px;
+  }
+}

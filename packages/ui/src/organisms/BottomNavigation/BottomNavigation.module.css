@@ -1,4 +1,5 @@
 /* Container selon specs: Hauteur 80px, Fond Surface/White, Bordure Top 1px Solid #E2E8F0 */
+/* Mobile only: hidden on desktop (>768px) */
 .container {
   position: fixed;
   bottom: 0;
@@ -12,6 +13,13 @@
   border-top: 1px solid #E2E8F0;
   box-shadow: 0 -4px 6px -1px rgb(0 0 0 / 0.05);
   padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+/* Hide on desktop (1024px+ quand sidebar visible) */
+@media (min-width: 1024px) {
+  .container {
+    display: none;
+  }
 }
 
 .item {
