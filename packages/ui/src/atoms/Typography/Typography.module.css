@@ -1,0 +1,44 @@
+@import '../../ui/token.css';
+
+.text {
+  font-family: var(--font-family-base);
+  margin: 0;
+  color: var(--color-neutral-dark);
+}
+
+/* Variantes de taille & style basées sur les tokens */
+.headingXL {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+}
+
+.headingLG {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-snug);
+}
+
+.headingMD {
+  font-size: var(--text-md);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-normal);
+}
+
+.bodyLG {
+  font-size: var(--text-body-lg);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-relaxed); /* 1.7 - CRUCIAL DYS */
+}
+
+.bodyMD {
+  font-size: var(--text-body-md);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-normal);
+}
+
+.caption {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-regular);
+  color: var(--color-neutral-mid);
+}
