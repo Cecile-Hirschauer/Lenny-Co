@@ -1,0 +1,48 @@
+:root {
+  /* --- 🎨 PALETTE DE COULEURS (Lenny & Co) --- */
+  
+  /* Actions & Marque */
+  --color-primary: #3B82F6;       /* Blue: Action principale, rassurante */
+  --color-secondary: #FF9500;     /* Orange: Mascotte, Motivation, Jeu */
+  
+  /* Feedback */
+  --color-success: #1ABFB4;       /* Teal: Validation, Progrès (Mieux que vert) */
+  --color-error: #E11D48;         /* Soft Red: Erreurs bienveillantes */
+  
+  /* Textes & Neutres */
+  --color-neutral-dark: #1E293B;  /* Texte principal (Gris foncé doux) */
+  --color-neutral-mid: #64748B;   /* Légendes, désactivé */
+  
+  /* Fonds */
+  --color-bg-paper: #F8FAFC;      /* Blanc cassé: Réduit l'éblouissement */
+  --color-surface: #FFFFFF;       /* Blanc pur: Cartes, Inputs */
+
+  /* --- ✍️ TYPOGRAPHIE (Lexend) --- */
+  --font-family-base: 'Lexend', sans-serif;
+  
+  /* Tailles (Font Size) */
+  --text-xl: 32px;  /* Titres Onboarding */
+  --text-lg: 24px;  /* Titres Sections */
+  --text-md: 20px;  /* Titres Cartes */
+  --text-body-lg: 18px; /* Lecture Mission (Grand confort) */
+  --text-body-md: 16px; /* Texte Standard */
+  --text-btn: 18px;     /* Boutons (Cible large) */
+  --text-caption: 12px; /* Mentions */
+
+  /* Poids (Font Weight) */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* Hauteur de ligne (Line Height) - Pour l'accessibilité Dys */
+  --leading-tight: 1.3;    /* Titres (130%) */
+  --leading-snug: 1.35;    /* Sections (135%) */
+  --leading-normal: 1.5;   /* Standard (150%) */
+  --leading-relaxed: 1.7;  /* Lecture (170% - CRUCIAL) */
+  --leading-none: 1;       /* Boutons (100%) */
+
+  /* --- 📐 FORMES --- */
+  --radius-card: 16px;
+  --radius-btn: 999px; /* Pill shape */
+}
