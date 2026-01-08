@@ -1,0 +1,38 @@
+.button {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 60;
+}
+
+.line {
+  width: 32px;
+  height: 3px;
+  background: var(--color-neutral-dark, #1E293B);
+  border-radius: 10px;
+  transition: all 0.3s linear;
+  position: relative;
+  transform-origin: 1px;
+}
+
+/* Animation en croix quand ouvert */
+.button.open .line:first-child {
+  transform: rotate(45deg);
+}
+
+.button.open .line:nth-child(2) {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.button.open .line:nth-child(3) {
+  transform: rotate(-45deg);
+}
+
+/* Note: Le masquage sur Desktop est gere par le Header, pas ici */

@@ -1,9 +1,50 @@
-@import '../../ui/token.css';
-
 .layout {
   min-height: 100vh;
-  background-color: var(--color-bg-paper);
+  background-color: var(--color-bg-paper, #F8FAFC);
   padding-bottom: 100px; /* Espace pour la BottomNavigation */
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background-color: transparent;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.greeting {
+  display: flex;
+  flex-direction: column;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+}
+
+.settingsButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--color-neutral-mid, #64748B);
+  transition: all 0.2s ease-in-out;
+}
+
+.settingsButton:hover {
+  background-color: var(--color-bg-default, #F1F5F9);
+  color: var(--color-neutral-dark, #1E293B);
 }
 
 .content {
