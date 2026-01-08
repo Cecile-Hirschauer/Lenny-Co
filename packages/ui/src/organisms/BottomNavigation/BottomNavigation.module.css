@@ -1,5 +1,4 @@
-@import '../../ui/token.css';
-
+/* Container selon specs: Hauteur 80px, Fond Surface/White, Bordure Top 1px Solid #E2E8F0 */
 .container {
   position: fixed;
   bottom: 0;
@@ -9,8 +8,8 @@
   align-items: center;
   justify-content: space-around;
   height: 80px;
-  background-color: var(--color-surface);
-  border-top: 1px solid #e2e8f0;
+  background-color: var(--color-surface, #FFFFFF);
+  border-top: 1px solid #E2E8F0;
   box-shadow: 0 -4px 6px -1px rgb(0 0 0 / 0.05);
   padding-bottom: env(safe-area-inset-bottom, 0);
 }
@@ -28,29 +27,48 @@
   cursor: pointer;
   text-decoration: none;
   transition: all 0.2s ease-in-out;
+  padding: 0;
 }
 
+/* Items selon specs: Icone (24px) + Label (12px) */
 .icon {
   width: 24px;
   height: 24px;
-  color: var(--color-neutral-mid);
+  color: var(--color-neutral-mid, #64748B);
   transition: color 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon svg {
+  width: 24px;
+  height: 24px;
 }
 
 .label {
-  font-family: var(--font-family-base);
-  font-size: var(--text-caption);
-  font-weight: var(--weight-medium);
-  color: var(--color-neutral-mid);
+  font-family: var(--font-family-base, 'Lexend', sans-serif);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-neutral-mid, #64748B);
   transition: all 0.2s ease-in-out;
 }
 
-/* État Actif */
+/* Active State selon specs: Icone remplie (Bleu), Label Gras */
 .itemActive .icon {
-  color: var(--color-primary);
+  color: var(--color-primary, #3B82F6);
 }
 
 .itemActive .label {
-  color: var(--color-primary);
-  font-weight: var(--weight-bold);
+  color: var(--color-primary, #3B82F6);
+  font-weight: 700;
+}
+
+/* Hover state pour feedback */
+.item:hover:not(.itemActive) .icon {
+  color: var(--color-neutral-dark, #1E293B);
+}
+
+.item:hover:not(.itemActive) .label {
+  color: var(--color-neutral-dark, #1E293B);
 }

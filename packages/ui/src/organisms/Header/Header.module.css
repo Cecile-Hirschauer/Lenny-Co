@@ -1,44 +1,109 @@
-@import '../../ui/token.css';
-
 .header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--color-bg-default, #ffffff);
+  border-bottom: 1px solid var(--color-neutral-light, #E2E8F0);
+}
+
+.container {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  max-width: 1280px;
+  margin: 0 auto;
   padding: 16px 24px;
-  background-color: transparent;
 }
 
-.left {
-  display: flex;
+.logoWrapper {
+  flex-shrink: 0;
+}
+
+.desktopNav {
+  display: none;
+  gap: 32px;
+}
+
+.link {
+  font-family: var(--font-family-body, 'Inter', sans-serif);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-neutral-mid, #64748B);
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.link:hover {
+  color: var(--color-primary-main, #3B82F6);
+}
+
+.desktopActions {
+  display: none;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
 
-.greeting {
-  display: flex;
-  flex-direction: column;
-}
-
-.right {
-  display: flex;
-  align-items: center;
-}
-
-.settingsButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
+.textLink {
   background: none;
   border: none;
-  border-radius: 50%;
+  font-family: var(--font-family-body, 'Inter', sans-serif);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-neutral-mid, #64748B);
   cursor: pointer;
-  color: var(--color-neutral-mid);
-  transition: all 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out;
 }
 
-.settingsButton:hover {
-  background-color: var(--color-bg-default);
-  color: var(--color-neutral-dark);
+.textLink:hover {
+  color: var(--color-primary-main, #3B82F6);
+}
+
+/* --- CSS MOBILE --- */
+
+.mobileMenu {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  padding: 24px;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  z-index: 50;
+  border-top: 1px solid #E2E8F0;
+}
+
+.mobileMenuOpen {
+  transform: translateX(0);
+}
+
+.mobileNavLinks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  margin-top: 24px;
+}
+
+.mobileNavLinks a {
+  text-decoration: none;
+  color: var(--color-neutral-dark, #1E293B);
+}
+
+/* Desktop styles */
+@media (min-width: 1024px) {
+  .desktopNav {
+    display: flex;
+  }
+
+  .desktopActions {
+    display: flex;
+  }
+
+  .mobileMenu {
+    display: none;
+  }
 }

@@ -1,44 +1,69 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import styles from './Header.module.css';
-import { Avatar } from '../../atoms/Avatar/Avatar';
+import { Button } from '../../atoms/Button/Button';
 import { Typography } from '../../atoms/Typography/Typography';
+import { BurgerButton } from '../../atoms/BurgerButton/BurgerButton';
 
 export interface HeaderProps {
-  userName: string;
-  avatarSrc?: string;
-  onSettingsClick?: () => void;
+  /** URL ou chemin de l'image du logo */
+  logoSrc: string;
+  /** Liens de navigation (ex: [{ label: 'Accueil', href: '#' }]) */
+  links: Array<{ label: string; href: string }>;
+  /** Actions aux clics des boutons */
+  onLoginClick?: () => void;
+  onSignupClick?: () => void;
 }
 
-const SettingsIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <circle cx="12" cy="12" r="3" />
-    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
-  </svg>
-);
+export const Header = ({ logoSrc, links, onLoginClick, onSignupClick }: HeaderProps) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-export const Header = ({ userName, avatarSrc, onSettingsClick }: HeaderProps) => {
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
   return (
     <header className={styles.header}>
-      <div className={styles.left}>
-        <Avatar src={avatarSrc} alt={userName} size="medium" />
-        <div className={styles.greeting}>
-          <Typography variant="caption" component="span">
-            Bonjour
-          </Typography>
-          <Typography variant="headingMD" component="h1">
-            {userName} ��
-          </Typography>
-        </div>
-      </div>
+      <div className={styles.container}>
 
-      <div className={styles.right}>
-        <button
-          className={styles.settingsButton}
-          onClick={onSettingsClick}
-          aria-label="Paramètres"
-        >
-          <SettingsIcon />
-        </button>
+        {/* LOGO */}
+        <div className={styles.logoWrapper}>
+          <img src={logoSrc} alt="Logo" style={{ height: 40 }} />
+        </div>
+
+        {/* --- NAVIGATION DESKTOP --- */}
+        <nav className={styles.desktopNav}>
+          {links.map((link) => (
+            <a key={link.label} href={link.href} className={styles.link}>
+              {link.label}
+            </a>
+          ))}
+        </nav>
+        <div className={styles.desktopActions}>
+          <button className={styles.textLink} onClick={onLoginClick}>Connexion</button>
+          <Button label="S'inscrire" variant="primary" onClick={onSignupClick} />
+        </div>
+
+        {/* --- MOBILE --- */}
+
+        {/* 1. L'Atome Burger */}
+        <BurgerButton isOpen={isMenuOpen} onClick={toggleMenu} />
+
+        {/* 2. Le Menu Overlay (Visible uniquement si isMenuOpen est true) */}
+        <div className={`${styles.mobileMenu} ${isMenuOpen ? styles.mobileMenuOpen : ''}`}>
+          <nav className={styles.mobileNavLinks}>
+            {links.map((link) => (
+              <a key={link.label} href={link.href} onClick={toggleMenu}>
+                <Typography variant="headingMD">{link.label}</Typography>
+              </a>
+            ))}
+            <hr style={{ width: '100%', borderColor: '#E2E8F0', margin: '24px 0' }} />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: '100%' }}>
+              <Button label="Connexion" variant="outline" onClick={onLoginClick} />
+              <Button label="S'inscrire" variant="primary" onClick={onSignupClick} />
+            </div>
+          </nav>
+        </div>
+
       </div>
     </header>
   );

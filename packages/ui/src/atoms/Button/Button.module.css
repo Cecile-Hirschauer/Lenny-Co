@@ -1,6 +1,3 @@
-/* Import des tokens */
-@import '../../ui/token.css';
-
 .button {
   display: inline-flex;
   align-items: center;

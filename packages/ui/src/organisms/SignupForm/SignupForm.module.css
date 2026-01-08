@@ -1,0 +1,84 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+}
+
+.row > * {
+  flex: 1;
+}
+
+.checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.checkboxInput {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  accent-color: var(--color-primary, #3B82F6);
+  cursor: pointer;
+}
+
+.checkboxLabel {
+  font-family: var(--font-family-base, 'Lexend', sans-serif);
+  font-size: 14px;
+  color: var(--color-neutral-dark, #1E293B);
+  line-height: 1.5;
+}
+
+.checkboxLink {
+  color: var(--color-primary, #3B82F6);
+  text-decoration: none;
+}
+
+.checkboxLink:hover {
+  text-decoration: underline;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.switchText {
+  text-align: center;
+  margin-top: 8px;
+}
+
+.switchLink {
+  font-family: var(--font-family-base, 'Lexend', sans-serif);
+  font-size: 14px;
+  color: var(--color-primary, #3B82F6);
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-weight: 600;
+}
+
+.switchLink:hover {
+  text-decoration: underline;
+}
+
+.errorText {
+  font-family: var(--font-family-base, 'Lexend', sans-serif);
+  font-size: 12px;
+  color: var(--color-error, #E11D48);
+}
