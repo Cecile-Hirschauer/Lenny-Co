@@ -42,6 +42,12 @@
   min-width: 0;
 }
 
+.meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
 /* Zone Action a droite - Bouton Play */
 .action {
   margin-left: 16px;

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import styles from './SignupForm.module.css';
 import { Input } from '../../atoms/Input/Input';
 import { Button } from '../../atoms/Button/Button';
@@ -41,11 +41,11 @@ export const SignupForm = ({
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<keyof SignupFormData | 'terms', string>>>({});
 
-  const handleChange = (field: keyof SignupFormData) => (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = useCallback((field: keyof SignupFormData) => (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [field]: e.target.value }));
-  };
+  }, []);
 
-  const validate = () => {
+  const validate = useCallback(() => {
     const newErrors: Partial<Record<keyof SignupFormData | 'terms', string>> = {};
 
     if (!formData.firstName.trim()) {
@@ -80,14 +80,14 @@ export const SignupForm = ({
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  };
+  }, [formData, acceptTerms]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     if (validate()) {
       onSubmit?.(formData);
     }
-  };
+  }, [validate, onSubmit, formData]);
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
@@ -163,7 +163,7 @@ export const SignupForm = ({
       </div>
 
       {error && (
-        <Typography variant="caption" component="p" style={{ color: 'var(--color-error, #E11D48)', textAlign: 'center' }}>
+        <Typography variant="caption" component="p" className={styles.errorMessage}>
           {error}
         </Typography>
       )}

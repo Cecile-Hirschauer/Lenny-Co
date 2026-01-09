@@ -105,6 +105,25 @@
   color: var(--color-neutral-dark, #1E293B);
 }
 
+.mobileDivider {
+  width: 100%;
+  border-color: #E2E8F0;
+  margin: 24px 0;
+}
+
+.mobileThemeToggle {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.mobileActions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
 /* Desktop styles */
 @media (min-width: 1024px) {
   .logo {

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import styles from './LoginForm.module.css';
 import { Input } from '../../atoms/Input/Input';
 import { Button } from '../../atoms/Button/Button';
@@ -30,7 +30,7 @@ export const LoginForm = ({
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
 
-  const validate = () => {
+  const validate = useCallback(() => {
     const newErrors: { email?: string; password?: string } = {};
 
     if (!email) {
@@ -45,14 +45,14 @@ export const LoginForm = ({
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  };
+  }, [email, password]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     if (validate()) {
       onSubmit?.({ email, password });
     }
-  };
+  }, [validate, onSubmit, email, password]);
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
@@ -91,7 +91,7 @@ export const LoginForm = ({
       </div>
 
       {error && (
-        <Typography variant="caption" component="p" style={{ color: 'var(--color-error, #E11D48)', textAlign: 'center' }}>
+        <Typography variant="caption" component="p" className={styles.errorMessage}>
           {error}
         </Typography>
       )}

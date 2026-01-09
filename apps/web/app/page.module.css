@@ -213,6 +213,29 @@
   animation: bounce 2s ease-in-out infinite;
 }
 
+/* Utility classes for inline style replacement */
+.heroDescription {
+  margin-top: 24px;
+  margin-bottom: 32px;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.cardDescription {
+  margin-top: 12px;
+}
+
+.testimonialsHeader {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.testimonialAuthor {
+  margin-top: 16px;
+}
+
 .card:hover .cardIcon {
   animation: wiggle 0.4s ease-in-out;
 }

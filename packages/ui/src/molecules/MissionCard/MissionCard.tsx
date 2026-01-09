@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styles from './MissionCard.module.css';
 import { Typography } from '../../atoms/Typography/Typography';
 import { Tag } from '../../atoms/Tag/Tag';
@@ -11,19 +11,19 @@ export interface MissionCardProps {
   onClick?: () => void;
 }
 
-export const MissionCard = ({
+const DIFFICULTY_VARIANT = {
+  Facile: 'success',
+  Moyen: 'warning',
+  Difficile: 'primary',
+} as const;
+
+export const MissionCard = memo(({
   title,
   duration,
   difficulty,
   icon = '📖',
   onClick,
 }: MissionCardProps) => {
-  const difficultyVariant = {
-    Facile: 'success',
-    Moyen: 'warning',
-    Difficile: 'primary',
-  } as const;
-
   return (
     <div className={styles.card} onClick={onClick}>
       {/* 1. Zone Image */}
@@ -35,8 +35,8 @@ export const MissionCard = ({
           {title}
         </Typography>
 
-        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-          <Tag label={difficulty} variant={difficultyVariant[difficulty]} />
+        <div className={styles.meta}>
+          <Tag label={difficulty} variant={DIFFICULTY_VARIANT[difficulty]} />
           <Typography variant="caption" component="span">
             • {duration}
           </Typography>
@@ -51,4 +51,6 @@ export const MissionCard = ({
       </div>
     </div>
   );
-};
+});
+
+MissionCard.displayName = 'MissionCard';

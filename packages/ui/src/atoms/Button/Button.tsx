@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styles from './Button.module.css';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -8,7 +8,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   label: string;
 }
 
-export const Button = ({
+export const Button = memo(({
   variant = 'primary',
   label,
   className,
@@ -28,4 +28,6 @@ export const Button = ({
       {label}
     </button>
   );
-};
+});
+
+Button.displayName = 'Button';

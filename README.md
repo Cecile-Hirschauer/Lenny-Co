@@ -56,6 +56,27 @@ L'application web utilise plusieurs design patterns :
 - **Mobile First** : CSS avec breakpoints progressifs (768px, 1024px, 1280px)
 - **Atomic Design** : Composants organises en atoms, molecules, organisms
 
+## Optimisations Performance
+
+### Memoisation des composants
+
+Les composants presentationnels sont enveloppes avec `React.memo()` pour eviter les re-renders inutiles :
+
+- **Atoms** : Avatar, Button, Tag
+- **Molecules** : AlertCard, MissionCard, StatCard
+
+### Hooks d'optimisation
+
+- **useMemo** : Tableaux de navigation (sidebar, bottom nav)
+- **useCallback** : Handlers d'evenements (navigation, formulaires)
+
+### Bonnes pratiques appliquees
+
+- Constantes extraites hors des composants (mock data, mappings)
+- Styles inline remplaces par CSS Modules
+- Console.logs supprimes en production
+- Icones SVG memoises avec `displayName`
+
 ## Installation
 
 ```bash
