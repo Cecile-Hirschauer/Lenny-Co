@@ -22,7 +22,7 @@ export default function Homepage() {
               </Typography>
             </h1>
 
-            <div style={{ marginTop: 24, marginBottom: 32 }}>
+            <div className={styles.heroDescription}>
               <Typography variant="bodyLG">
                 Lenny & Co est une plateforme ludique et bienveillante pour les enfants dyslexiques.
                 Avec des exercices adaptés, des récompenses motivantes et le soutien de tes parents, tu vas progresser à ton rythme.
@@ -49,7 +49,7 @@ export default function Homepage() {
 
         {/* --- FEATURES SECTION --- */}
         <section className={styles.features}>
-          <div style={{ textAlign: 'center' }}>
+          <div className={styles.textCenter}>
             <span className={styles.sectionTitle}>
               <Typography variant="headingLG" component="h2">Pourquoi nous choisir ?</Typography>
             </span>
@@ -60,7 +60,7 @@ export default function Homepage() {
             <div className={styles.card}>
               <span className={styles.cardIcon}>📖</span>
               <Typography variant="headingMD" component="h3">Exercices adaptés</Typography>
-              <div style={{ marginTop: 12 }}>
+              <div className={styles.cardDescription}>
                 <Typography variant="bodyMD">
                   Des exercices spécialement conçus pour les enfants dyslexiques, avec des polices et un rythme adaptés.
                 </Typography>
@@ -71,7 +71,7 @@ export default function Homepage() {
             <div className={styles.card}>
               <span className={styles.cardIcon}>👨‍👩‍👧</span>
               <Typography variant="headingMD" component="h3">Collaboration parent-enfant</Typography>
-              <div style={{ marginTop: 12 }}>
+              <div className={styles.cardDescription}>
                 <Typography variant="bodyMD">
                   Les parents suivent la progression et reçoivent des conseils pour soutenir l&apos;apprentissage.
                 </Typography>
@@ -82,7 +82,7 @@ export default function Homepage() {
             <div className={styles.card}>
               <span className={styles.cardIcon}>🌍</span>
               <Typography variant="headingMD" component="h3">Monde réel</Typography>
-              <div style={{ marginTop: 12 }}>
+              <div className={styles.cardDescription}>
                 <Typography variant="bodyMD">
                   Découvre les lettres dans ton environnement avec la réalité augmentée.
                 </Typography>
@@ -95,7 +95,7 @@ export default function Homepage() {
       {/* --- TESTIMONIALS SECTION --- */}
       <section className={styles.testimonials}>
         <div className={styles.container}>
-          <div style={{ textAlign: 'center', marginBottom: 40 }}>
+          <div className={styles.testimonialsHeader}>
             <span className={styles.sectionTitle}>
               <Typography variant="headingLG" component="h2">Ce qu&apos;ils en pensent</Typography>
             </span>
@@ -106,7 +106,7 @@ export default function Homepage() {
               <Typography variant="bodyLG">
                 &quot;Mon fils adore les exercices avec Lenny ! Il progresse chaque jour et redemande à jouer. Merci pour cette application magique !&quot;
               </Typography>
-              <div style={{ marginTop: 16 }}>
+              <div className={styles.testimonialAuthor}>
                 <Typography variant="bodyMD">- Marie, maman de Lucas (8 ans)</Typography>
               </div>
             </div>
@@ -115,7 +115,7 @@ export default function Homepage() {
               <Typography variant="bodyLG">
                 &quot;Enfin une application qui comprend les besoins des enfants dyslexiques. Je la recommande à tous mes patients.&quot;
               </Typography>
-              <div style={{ marginTop: 16 }}>
+              <div className={styles.testimonialAuthor}>
                 <Typography variant="bodyMD">- Dr. Sophie Martin, Orthophoniste</Typography>
               </div>
             </div>

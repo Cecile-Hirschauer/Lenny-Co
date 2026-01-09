@@ -1,8 +1,11 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { Header } from '@lenny/ui';
 
 export function HeaderClient() {
+  const router = useRouter();
+
   return (
     <Header
       logoSrc="/images/LennyCo_logo.png"
@@ -11,8 +14,8 @@ export function HeaderClient() {
         { label: 'A propos', href: '#' },
         { label: 'Contact', href: '#' },
       ]}
-      onLoginClick={() => console.log('Login')}
-      onSignupClick={() => console.log('Signup')}
+      onLoginClick={() => router.push('/login')}
+      onSignupClick={() => router.push('/signup')}
     />
   );
 }

@@ -61,7 +61,7 @@ export default function LoginPage() {
             isLoading={isLoading}
             error={error || undefined}
             onSwitchToSignup={handleSwitchToSignup}
-            onForgotPassword={() => console.log('Forgot password')}
+            onForgotPassword={() => router.push('/forgot-password')}
           />
 
           {/* Demo Credentials */}

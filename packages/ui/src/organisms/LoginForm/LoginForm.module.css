@@ -75,3 +75,8 @@
 .switchLink:hover {
   text-decoration: underline;
 }
+
+.errorMessage {
+  color: var(--color-error, #E11D48);
+  text-align: center;
+}

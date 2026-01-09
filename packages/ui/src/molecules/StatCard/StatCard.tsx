@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styles from './StatCard.module.css';
 import { Typography } from '../../atoms/Typography/Typography';
 
@@ -21,7 +21,7 @@ export interface StatCardProps {
  * - warning: Orange (#F59E0B)
  * - neutral: Gris (#64748B)
  */
-export const StatCard = ({
+export const StatCard = memo(({
   value,
   label,
   variant = 'primary',
@@ -42,4 +42,6 @@ export const StatCard = ({
       </Typography>
     </div>
   );
-};
+});
+
+StatCard.displayName = 'StatCard';

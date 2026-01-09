@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styles from './Avatar.module.css';
 
 export interface AvatarProps {
@@ -7,14 +7,22 @@ export interface AvatarProps {
   size?: 'small' | 'medium' | 'large';
 }
 
-export const Avatar = ({ src, alt = 'Avatar', size = 'medium' }: AvatarProps) => {
+const FALLBACK_FONT_SIZE = {
+  small: 12,
+  medium: 20,
+  large: 20,
+} as const;
+
+export const Avatar = memo(({ src, alt = 'Avatar', size = 'medium' }: AvatarProps) => {
   return (
     <div className={`${styles.container} ${styles[size]}`}>
       {src ? (
         <img src={src} alt={alt} className={styles.image} />
       ) : (
-        <span style={{ fontSize: size === 'small' ? 12 : 20 }}>🦁</span>
+        <span className={styles.fallback} style={{ fontSize: FALLBACK_FONT_SIZE[size] }}>🦁</span>
       )}
     </div>
   );
-};
+});
+
+Avatar.displayName = 'Avatar';

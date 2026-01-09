@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styles from './AlertCard.module.css';
 import { Typography } from '../../atoms/Typography/Typography';
 
@@ -11,8 +11,8 @@ export interface AlertCardProps {
   icon?: React.ReactNode;
 }
 
-// Icônes par défaut pour chaque variant
-const DefaultIcons: Record<AlertCardVariant, React.ReactNode> = {
+// Icônes par défaut pour chaque variant (extracted as constant)
+const DEFAULT_ICONS: Record<AlertCardVariant, React.ReactNode> = {
   danger: (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
       <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
@@ -52,14 +52,14 @@ const DefaultIcons: Record<AlertCardVariant, React.ReactNode> = {
  * - success: Messages de succès (vert)
  * - warning: Avertissements (orange)
  */
-export const AlertCard = ({
+export const AlertCard = memo(({
   variant,
   title,
   message,
   icon,
 }: AlertCardProps) => {
   const variantClass = styles[variant];
-  const displayIcon = icon || DefaultIcons[variant];
+  const displayIcon = icon || DEFAULT_ICONS[variant];
 
   return (
     <div className={`${styles.card} ${variantClass}`} role="alert">
@@ -76,4 +76,6 @@ export const AlertCard = ({
       </div>
     </div>
   );
-};
+});
+
+AlertCard.displayName = 'AlertCard';

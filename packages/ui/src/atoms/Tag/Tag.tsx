@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styles from './Tag.module.css';
 
 export interface TagProps {
@@ -6,10 +6,12 @@ export interface TagProps {
   variant?: 'neutral' | 'success' | 'warning' | 'primary';
 }
 
-export const Tag = ({ label, variant = 'neutral' }: TagProps) => {
+export const Tag = memo(({ label, variant = 'neutral' }: TagProps) => {
   return (
     <span className={`${styles.tag} ${styles[variant]}`}>
       {label}
     </span>
   );
-};
+});
+
+Tag.displayName = 'Tag';

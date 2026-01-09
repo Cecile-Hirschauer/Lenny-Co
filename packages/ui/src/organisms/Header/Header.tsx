@@ -62,13 +62,13 @@ export const Header = ({ logoSrc, links, onLoginClick, onSignupClick, showThemeT
                 <Typography variant="headingMD">{link.label}</Typography>
               </a>
             ))}
-            <hr style={{ width: '100%', borderColor: '#E2E8F0', margin: '24px 0' }} />
+            <hr className={styles.mobileDivider} />
             {showThemeToggle && (
-              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
+              <div className={styles.mobileThemeToggle}>
                 <ThemeToggle size="md" showLabels />
               </div>
             )}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: '100%' }}>
+            <div className={styles.mobileActions}>
               <Button label="Connexion" variant="outline" onClick={onLoginClick} />
               <Button label="S'inscrire" variant="primary" onClick={onSignupClick} />
             </div>
