@@ -1,3 +1,8 @@
+// Context
+export { ThemeProvider, useTheme } from './context/ThemeContext';
+export type { Theme, ThemePreference } from './context/ThemeContext';
+export { getThemeInitScript } from './context/themeScript';
+
 // Atomes
 export { Button } from './atoms/Button/Button';
 export type { ButtonProps } from './atoms/Button/Button';
