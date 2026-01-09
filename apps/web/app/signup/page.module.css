@@ -4,7 +4,8 @@
 
 .page {
   min-height: 100vh;
-  background-color: #F8FAFC;
+  background-color: var(--color-bg-paper);
+  transition: background-color 0.3s ease;
 }
 
 .container {
@@ -25,16 +26,17 @@
 }
 
 .subtitle {
-  color: #64748B;
+  color: var(--color-neutral-mid);
 }
 
 /* Form wrapper */
 .formWrapper {
-  background-color: #FFFFFF;
+  background-color: var(--color-surface);
   border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  border: 1px solid #E2E8F0;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-neutral-100);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 /* Features list */
@@ -44,21 +46,21 @@
   gap: 12px;
   margin-top: 24px;
   padding-top: 24px;
-  border-top: 1px solid #E2E8F0;
+  border-top: 1px solid var(--color-neutral-100);
 }
 
 .featureItem {
   display: flex;
   align-items: center;
   gap: 12px;
-  color: #475569;
+  color: var(--color-neutral-mid);
   font-size: 14px;
 }
 
 .featureIcon {
   width: 24px;
   height: 24px;
-  color: #22C55E;
+  color: var(--color-success);
   flex-shrink: 0;
 }
 

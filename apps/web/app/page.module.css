@@ -34,8 +34,9 @@
 
 /* --- LAYOUT GLOBAL & MOBILE --- */
 .main {
-  background: linear-gradient(180deg, #F8FAFC 0%, #EEF6FF 50%, #FFF7ED 100%);
+  background: var(--color-bg-paper);
   min-height: 100vh;
+  transition: background-color 0.3s ease;
 }
 
 .container {
@@ -51,7 +52,7 @@
   justify-content: space-between;
   align-items: center;
   height: 72px;
-  border-bottom: 1px solid var(--color-neutral-100, #E2E8F0);
+  border-bottom: 1px solid var(--color-neutral-100);
 }
 
 /* Navigation: Mobile vs Desktop */
@@ -107,7 +108,7 @@
 }
 
 .heroTitle {
-  background: linear-gradient(135deg, var(--color-primary, #3B82F6) 0%, var(--color-secondary, #FF9500) 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -153,10 +154,11 @@
 /* Features Section */
 .features {
   padding: 60px 0;
-  background: linear-gradient(180deg, rgba(255,255,255,0.8) 0%, rgba(248,250,252,0.9) 100%);
+  background: var(--color-surface);
   border-radius: 40px 40px 0 0;
   margin-top: -20px;
   position: relative;
+  transition: background-color 0.3s ease;
 }
 
 .sectionTitle {
@@ -173,7 +175,7 @@
   transform: translateX(-50%);
   width: 60px;
   height: 4px;
-  background: linear-gradient(90deg, var(--color-primary, #3B82F6), var(--color-secondary, #FF9500));
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
   border-radius: 2px;
 }
 
@@ -188,8 +190,8 @@
   padding: 28px;
   border: 2px solid transparent;
   border-radius: 24px;
-  background: linear-gradient(white, white) padding-box,
-              linear-gradient(135deg, var(--color-primary, #3B82F6) 0%, var(--color-secondary, #FF9500) 100%) border-box;
+  background: linear-gradient(var(--color-surface), var(--color-surface)) padding-box,
+              linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%) border-box;
   text-align: center;
   transition: all 0.3s ease;
   animation: fadeInUp 0.6s ease-out backwards;
@@ -218,8 +220,9 @@
 /* Testimonials Section */
 .testimonials {
   padding: 60px 0;
-  background: linear-gradient(135deg, #FFF7ED 0%, #EEF6FF 100%);
+  background: var(--color-bg-default);
   position: relative;
+  transition: background-color 0.3s ease;
 }
 
 .testimonials::before {
@@ -242,8 +245,8 @@
 .testimonialCard {
   padding: 28px;
   border-radius: 24px;
-  background: white;
-  box-shadow: 0 8px 30px -10px rgba(0, 0, 0, 0.1);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-md);
   position: relative;
   transition: all 0.3s ease;
 }
@@ -254,7 +257,7 @@
   top: 10px;
   left: 20px;
   font-size: 60px;
-  color: var(--color-primary, #3B82F6);
+  color: var(--color-primary);
   opacity: 0.15;
   font-family: serif;
   line-height: 1;
@@ -268,7 +271,7 @@
 /* Footer */
 .footer {
   padding: 40px 0;
-  background: linear-gradient(90deg, var(--color-primary, #3B82F6) 0%, var(--color-secondary, #FF9500) 100%);
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
   text-align: center;
   margin-top: 0;
 }

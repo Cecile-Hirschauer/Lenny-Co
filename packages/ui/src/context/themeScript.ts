@@ -12,7 +12,7 @@ export function getThemeInitScript(storageKey = STORAGE_KEY_DEFAULT): string {
         var preference = localStorage.getItem('${storageKey}');
         var theme = preference;
         if (!theme || theme === 'system') {
-          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          theme = 'light';
         }
         document.documentElement.setAttribute('data-theme', theme);
         document.documentElement.classList.add(theme);

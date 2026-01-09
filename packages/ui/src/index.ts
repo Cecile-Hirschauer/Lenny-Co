@@ -22,6 +22,9 @@ export type { BurgerButtonProps } from './atoms/BurgerButton/BurgerButton';
 export { Input } from './atoms/Input/Input';
 export type { InputProps } from './atoms/Input/Input';
 
+export { ThemeToggle } from './atoms/ThemeToggle/ThemeToggle';
+export type { ThemeToggleProps } from './atoms/ThemeToggle/ThemeToggle';
+
 // Molécules
 export { MissionCard } from './molecules/MissionCard/MissionCard';
 export type { MissionCardProps } from './molecules/MissionCard/MissionCard';

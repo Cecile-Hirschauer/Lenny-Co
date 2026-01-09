@@ -16,7 +16,7 @@ interface ProvidersProps {
  */
 export function Providers({ children }: ProvidersProps) {
   return (
-    <ThemeProvider defaultPreference="system">
+    <ThemeProvider defaultPreference="light">
       {children}
     </ThemeProvider>
   );

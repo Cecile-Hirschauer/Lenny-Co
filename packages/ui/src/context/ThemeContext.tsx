@@ -35,7 +35,7 @@ interface ThemeProviderProps {
 
 // Constantes
 const STORAGE_KEY_DEFAULT = 'lenny-theme-preference';
-const DEFAULT_PREFERENCE: ThemePreference = 'system';
+const DEFAULT_PREFERENCE: ThemePreference = 'light';
 
 // Context
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);

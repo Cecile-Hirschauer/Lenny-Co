@@ -12,7 +12,7 @@
 }
 
 .sectionTitle {
-  color: #1E293B;
+  color: var(--color-neutral-dark);
 }
 
 /* ============================================
@@ -23,10 +23,11 @@
   align-items: center;
   gap: 16px;
   padding: 20px;
-  background-color: #FFFFFF;
+  background-color: var(--color-surface);
   border-radius: 16px;
-  border: 1px solid #E2E8F0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--color-neutral-100);
+  box-shadow: var(--shadow-sm);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .profileInfo {
@@ -38,7 +39,7 @@
 .profileName {
   font-size: 18px;
   font-weight: 600;
-  color: #1E293B;
+  color: var(--color-neutral-dark);
 }
 
 .onlineStatus {
@@ -46,13 +47,13 @@
   align-items: center;
   gap: 6px;
   font-size: 13px;
-  color: #22C55E;
+  color: var(--color-success);
 }
 
 .onlineDot {
   width: 8px;
   height: 8px;
-  background-color: #22C55E;
+  background-color: var(--color-success);
   border-radius: 50%;
   animation: pulse 2s ease-in-out infinite;
 }
@@ -66,11 +67,12 @@
    PROGRESS CHART PLACEHOLDER
    ============================================ */
 .chartCard {
-  background-color: #FFFFFF;
+  background-color: var(--color-surface);
   border-radius: 16px;
-  border: 1px solid #E2E8F0;
+  border: 1px solid var(--color-neutral-100);
   padding: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-sm);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .chartHeader {
@@ -83,27 +85,28 @@
 .chartTitle {
   font-size: 16px;
   font-weight: 600;
-  color: #1E293B;
+  color: var(--color-neutral-dark);
 }
 
 .chartPeriod {
   font-size: 13px;
-  color: #64748B;
+  color: var(--color-neutral-mid);
   padding: 4px 10px;
-  background-color: #F1F5F9;
+  background-color: var(--color-neutral-100);
   border-radius: 8px;
 }
 
 .chartPlaceholder {
   height: 180px;
-  background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+  background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
   border-radius: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  color: #3B82F6;
+  color: var(--color-surface);
+  opacity: 0.9;
 }
 
 .chartBars {
@@ -115,7 +118,7 @@
 
 .chartBar {
   width: 24px;
-  background: linear-gradient(180deg, #3B82F6 0%, #60A5FA 100%);
+  background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-primary-light) 100%);
   border-radius: 4px 4px 0 0;
   animation: grow 1s ease-out forwards;
 }
@@ -165,17 +168,18 @@
    RECENT ACTIVITY
    ============================================ */
 .activityCard {
-  background-color: #FFFFFF;
+  background-color: var(--color-surface);
   border-radius: 16px;
-  border: 1px solid #E2E8F0;
+  border: 1px solid var(--color-neutral-100);
   padding: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-sm);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .activityTitle {
   font-size: 16px;
   font-weight: 600;
-  color: #1E293B;
+  color: var(--color-neutral-dark);
   margin-bottom: 16px;
 }
 
@@ -190,13 +194,13 @@
   align-items: center;
   gap: 12px;
   padding: 12px;
-  background-color: #F8FAFC;
+  background-color: var(--color-bg-paper);
   border-radius: 10px;
   transition: background-color 0.2s;
 }
 
 .activityItem:hover {
-  background-color: #F1F5F9;
+  background-color: var(--color-neutral-100);
 }
 
 .activityIcon {
@@ -210,18 +214,21 @@
 }
 
 .activityIconSuccess {
-  background-color: #DCFCE7;
-  color: #16A34A;
+  background-color: var(--color-success);
+  color: var(--color-surface);
+  opacity: 0.8;
 }
 
 .activityIconPrimary {
-  background-color: #DBEAFE;
-  color: #2563EB;
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+  opacity: 0.8;
 }
 
 .activityIconWarning {
-  background-color: #FEF3C7;
-  color: #D97706;
+  background-color: var(--color-secondary);
+  color: var(--color-surface);
+  opacity: 0.8;
 }
 
 .activityContent {
@@ -231,7 +238,7 @@
 
 .activityText {
   font-size: 14px;
-  color: #1E293B;
+  color: var(--color-neutral-dark);
   font-weight: 500;
   white-space: nowrap;
   overflow: hidden;
@@ -240,7 +247,7 @@
 
 .activityTime {
   font-size: 12px;
-  color: #64748B;
+  color: var(--color-neutral-mid);
   margin-top: 2px;
 }
 
