@@ -5,6 +5,7 @@ import styles from './Header.module.css';
 import { Button } from '../../atoms/Button/Button';
 import { Typography } from '../../atoms/Typography/Typography';
 import { BurgerButton } from '../../atoms/BurgerButton/BurgerButton';
+import { ThemeToggle } from '../../atoms/ThemeToggle/ThemeToggle';
 
 export interface HeaderProps {
   /** URL ou chemin de l'image du logo */
@@ -14,9 +15,11 @@ export interface HeaderProps {
   /** Actions aux clics des boutons */
   onLoginClick?: () => void;
   onSignupClick?: () => void;
+  /** Afficher le toggle de thème */
+  showThemeToggle?: boolean;
 }
 
-export const Header = ({ logoSrc, links, onLoginClick, onSignupClick }: HeaderProps) => {
+export const Header = ({ logoSrc, links, onLoginClick, onSignupClick, showThemeToggle = true }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -39,6 +42,7 @@ export const Header = ({ logoSrc, links, onLoginClick, onSignupClick }: HeaderPr
           ))}
         </nav>
         <div className={styles.desktopActions}>
+          {showThemeToggle && <ThemeToggle size="sm" />}
           <button className={styles.textLink} onClick={onLoginClick}>Connexion</button>
           <Button label="S'inscrire" variant="primary" onClick={onSignupClick} />
         </div>
@@ -59,6 +63,11 @@ export const Header = ({ logoSrc, links, onLoginClick, onSignupClick }: HeaderPr
               </a>
             ))}
             <hr style={{ width: '100%', borderColor: '#E2E8F0', margin: '24px 0' }} />
+            {showThemeToggle && (
+              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
+                <ThemeToggle size="md" showLabels />
+              </div>
+            )}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: '100%' }}>
               <Button label="Connexion" variant="outline" onClick={onLoginClick} />
               <Button label="S'inscrire" variant="primary" onClick={onSignupClick} />

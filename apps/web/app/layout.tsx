@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import { getThemeInitScript } from '@lenny/ui'
+import { Providers } from './providers'
 import './globals.css'
 import '@lenny/ui/tokens.css'
 
@@ -13,8 +15,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="fr">
-      <body>{children}</body>
+    <html lang="fr" suppressHydrationWarning>
+      <head>
+        {/* Script pour éviter le flash de thème incorrect */}
+        <script
+          dangerouslySetInnerHTML={{ __html: getThemeInitScript() }}
+        />
+      </head>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   )
 }
