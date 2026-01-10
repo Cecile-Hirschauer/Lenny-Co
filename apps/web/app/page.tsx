@@ -1,8 +1,18 @@
+import dynamicImport from 'next/dynamic';
 import Image from 'next/image';
 import styles from './page.module.css';
 // Import des composants depuis votre Design System
 import { Button, Typography } from '@lenny/ui';
-import { HeaderClient } from './components/HeaderClient';
+
+// Lazy load du Header (composant client non critique pour le LCP)
+const HeaderClient = dynamicImport(
+  () => import('./components/HeaderClient').then((mod) => mod.HeaderClient),
+  { ssr: true }
+);
+
+// Force le rendu statique (résout le TTFB de 4.5s)
+export const dynamic = 'force-static';
+export const revalidate = false;
 
 export default function Homepage() {
   return (
@@ -42,7 +52,9 @@ export default function Homepage() {
               width={400}
               height={400}
               className={styles.mascotImage}
-              loading="lazy"
+              priority
+              fetchPriority="high"
+              sizes="(max-width: 768px) 100vw, 400px"
             />
           </div>
         </section>

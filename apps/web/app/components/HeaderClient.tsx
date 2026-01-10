@@ -1,14 +1,25 @@
 'use client';
 
+import { memo } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { Header } from '@lenny/ui';
 
-export function HeaderClient() {
+export const HeaderClient = memo(function HeaderClient() {
   const router = useRouter();
 
   return (
     <Header
-      logoSrc="/images/LennyCo_logo.png"
+      logoElement={
+        <Image
+          src="/images/LennyCo_logo.png"
+          alt="Logo Lenny & Co"
+          width={120}
+          height={120}
+          priority
+          sizes="120px"
+        />
+      }
       links={[
         { label: 'Accueil', href: '#' },
         { label: 'A propos', href: '#' },
@@ -18,4 +29,4 @@ export function HeaderClient() {
       onSignupClick={() => router.push('/signup')}
     />
   );
-}
+});

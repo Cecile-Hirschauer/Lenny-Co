@@ -8,8 +8,10 @@ import { BurgerButton } from '../../atoms/BurgerButton/BurgerButton';
 import { ThemeToggle } from '../../atoms/ThemeToggle/ThemeToggle';
 
 export interface HeaderProps {
-  /** URL ou chemin de l'image du logo */
-  logoSrc: string;
+  /** URL ou chemin de l'image du logo (déprécié, utiliser logoElement) */
+  logoSrc?: string;
+  /** Élément React pour le logo (permet d'utiliser next/image) */
+  logoElement?: React.ReactNode;
   /** Liens de navigation (ex: [{ label: 'Accueil', href: '#' }]) */
   links: Array<{ label: string; href: string }>;
   /** Actions aux clics des boutons */
@@ -19,7 +21,7 @@ export interface HeaderProps {
   showThemeToggle?: boolean;
 }
 
-export const Header = ({ logoSrc, links, onLoginClick, onSignupClick, showThemeToggle = true }: HeaderProps) => {
+export const Header = ({ logoSrc, logoElement, links, onLoginClick, onSignupClick, showThemeToggle = true }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -30,7 +32,7 @@ export const Header = ({ logoSrc, links, onLoginClick, onSignupClick, showThemeT
 
         {/* LOGO */}
         <div className={styles.logoWrapper}>
-          <img src={logoSrc} alt="Logo" className={styles.logo} />
+          {logoElement || (logoSrc && <img src={logoSrc} alt="Logo" className={styles.logo} width={120} height={120} />)}
         </div>
 
         {/* --- NAVIGATION DESKTOP --- */}
