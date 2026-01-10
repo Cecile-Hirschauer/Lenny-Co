@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap');
+/* Font Lexend chargée via next/font dans layout.tsx pour éviter le render-blocking */
 
 :root {
   /* --- 🎨 PALETTE DE COULEURS (Lenny & Co) --- */
