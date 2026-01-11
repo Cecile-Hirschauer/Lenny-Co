@@ -20,7 +20,8 @@ Lenny-Co/
 │   └── web/                          # Application Next.js
 │       ├── app/                      # App Router (Next.js 14)
 │       │   ├── components/           # Composants specifiques app
-│       │   │   └── HeaderClient.tsx  # Header avec navigation
+│       │   │   ├── HeaderClient.tsx  # Header avec navigation
+│       │   │   └── JsonLd.tsx        # Donnees structurees Schema.org
 │       │   ├── dashboard/            # Page tableau de bord
 │       │   │   ├── page.tsx
 │       │   │   └── page.module.css
@@ -31,7 +32,10 @@ Lenny-Co/
 │       │   │   ├── page.tsx
 │       │   │   └── page.module.css
 │       │   ├── globals.css           # Styles globaux
-│       │   ├── layout.tsx            # Layout racine (fonts, metadata)
+│       │   ├── layout.tsx            # Layout racine (fonts, metadata, SEO)
+│       │   ├── manifest.ts           # PWA manifest
+│       │   ├── robots.ts             # Configuration robots.txt
+│       │   ├── sitemap.ts            # Sitemap dynamique
 │       │   ├── page.tsx              # Page d'accueil (Hero)
 │       │   ├── page.module.css
 │       │   └── providers.tsx         # Providers React (Theme, etc.)
@@ -229,6 +233,53 @@ const lexend = Lexend({
 ```
 
 **Lexend** : Police optimisee pour la lisibilite et la dyslexie.
+
+## SEO & GEO (Generative Engine Optimization)
+
+### Fichiers SEO Next.js
+
+| Fichier | URL generee | Description |
+|---------|-------------|-------------|
+| `sitemap.ts` | `/sitemap.xml` | Sitemap dynamique avec priorites |
+| `robots.ts` | `/robots.txt` | Regles crawlers (inclut bots IA) |
+| `manifest.ts` | `/manifest.webmanifest` | PWA manifest |
+
+### Metadata (`layout.tsx`)
+
+```typescript
+export const metadata: Metadata = {
+  metadataBase: new URL('https://lenny-and-co.vercel.app'),
+  title: { default: '...', template: '%s | Lenny & Co' },
+  description: '...',
+  keywords: ['dyslexie', 'aide lecture', ...],
+  openGraph: { type: 'website', locale: 'fr_FR', ... },
+  twitter: { card: 'summary_large_image', ... },
+  robots: { index: true, follow: true },
+  alternates: { canonical: '...' },
+};
+```
+
+### Donnees structurees (Schema.org)
+
+Le composant `JsonLd.tsx` injecte 3 schemas :
+
+| Schema | Usage GEO |
+|--------|-----------|
+| `SoftwareApplication` | Identification comme app educative |
+| `Organization` | Identite editeur |
+| `WebSite` | Structure du site |
+
+**Proprietes cles pour les IA generatives :**
+- `applicationCategory`: "EducationalApplication"
+- `featureList`: Scan OCR, Suivi Parents, Gamification
+- `audience`: Enfants dyslexiques 6-12 ans
+- `offers.price`: 0 (gratuit)
+
+### Crawlers IA autorises (`robots.ts`)
+
+```
+GPTBot, ChatGPT-User, Google-Extended, Anthropic-AI, Claude-Web
+```
 
 ## Accessibilite (a11y)
 
