@@ -1,0 +1,63 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#3B82F6', 'primaryTextColor': '#1E293B', 'lineColor': '#64748B'}}}%%
+
+flowchart LR
+    subgraph TITLE["📡 COMMANDES & ÉVÉNEMENTS ENTRE DOMAINES"]
+        direction TB
+        
+        subgraph SCENARIO1["Scénario 1: Inscription Utilisateur"]
+            direction LR
+            U1["👤 Utilisateur"] -->|"1. S'inscrire"| ID1["🔐 Identité"]
+            ID1 -->|"UserRegistered"| FAM1["👨‍👩‍👧 Famille"]
+            FAM1 -->|"2. Créer FamilyUnit"| FAM1
+            FAM1 -->|"FamilyCreated"| GAME1["🎮 Gamification"]
+            GAME1 -->|"3. Créer PlayerProfile"| GAME1
+        end
+        
+        subgraph SCENARIO2["Scénario 2: Complétion Exercice"]
+            direction LR
+            C2["🦁 Enfant"] -->|"1. Soumettre réponse"| LEARN2["📚 Apprentissage"]
+            LEARN2 -->|"ExerciseCompleted"| GAME2["🎮 Gamification"]
+            GAME2 -->|"2. Calculer XP"| GAME2
+            GAME2 -->|"XPAwarded"| GAME2
+            LEARN2 -->|"ExerciseCompleted"| SUP2["👁️ Supervision"]
+            SUP2 -->|"3. Mettre à jour stats"| SUP2
+            LEARN2 -->|"ErrorDetected"| SUP2
+            SUP2 -->|"4. Générer alerte"| SUP2
+            SUP2 -->|"AlertGenerated"| P2["👨 Parent"]
+        end
+        
+        subgraph SCENARIO3["Scénario 3: Déblocage Badge"]
+            direction LR
+            GAME3["🎮 Gamification"] -->|"BadgeUnlocked"| SUP3["👁️ Supervision"]
+            SUP3 -->|"1. Créer notification"| SUP3
+            SUP3 -->|"NotificationSent"| P3["👨 Parent"]
+            GAME3 -->|"LevelUp"| FAM3["👨‍👩‍👧 Famille"]
+            FAM3 -->|"2. Mettre à jour ChildProfile.level"| FAM3
+        end
+        
+        subgraph SCENARIO4["Scénario 4: Scan Document"]
+            direction LR
+            C4["🦁 Enfant"] -->|"1. Scanner document"| ACC4["♿ Accessibilité"]
+            ACC4 -->|"DocumentScanned"| ACC4
+            ACC4 -->|"2. Adapter texte"| ACC4
+            ACC4 -->|"ContentAdapted"| LEARN4["📚 Apprentissage"]
+            LEARN4 -->|"3. Créer exercice personnalisé"| LEARN4
+        end
+    end
+    
+    %% Styles
+    classDef user fill:#64748B,stroke:#475569,color:#fff
+    classDef identity fill:#3B82F6,stroke:#2563EB,color:#fff
+    classDef family fill:#8B5CF6,stroke:#7C3AED,color:#fff
+    classDef learning fill:#10B981,stroke:#059669,color:#fff
+    classDef gamification fill:#F59E0B,stroke:#D97706,color:#fff
+    classDef supervision fill:#EF4444,stroke:#DC2626,color:#fff
+    classDef accessibility fill:#14B8A6,stroke:#0D9488,color:#fff
+    
+    class U1,C2,P2,C4,P3 user
+    class ID1 identity
+    class FAM1,FAM3 family
+    class LEARN2,LEARN4 learning
+    class GAME1,GAME2,GAME3 gamification
+    class SUP2,SUP3 supervision
+    class ACC4 accessibility

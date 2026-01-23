@@ -1,0 +1,118 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#3B82F6', 'primaryTextColor': '#1E293B', 'lineColor': '#64748B'}}}%%
+
+flowchart TB
+    subgraph TITLE["🏗️ ARCHITECTURE TECHNIQUE DE DÉPLOIEMENT - Lenny & Co"]
+        direction TB
+        
+        subgraph CLIENTS["📱 Clients"]
+            direction LR
+            BROWSER["🌐 Navigateur Web<br/>(Chrome, Safari, Firefox)"]
+            IOS["📱 iOS App<br/>(App Store)"]
+            ANDROID["🤖 Android App<br/>(Play Store)"]
+        end
+        
+        subgraph CDN_LAYER["☁️ CDN & Edge"]
+            direction LR
+            VERCEL_EDGE["⚡ Vercel Edge Network<br/>─────────<br/>• CDN Global<br/>• Edge Functions<br/>• SSL/TLS"]
+            CLOUDFLARE["🛡️ Cloudflare<br/>─────────<br/>• DDoS Protection<br/>• WAF<br/>• Bot Management"]
+        end
+        
+        subgraph HOSTING["🖥️ Hébergement Applications"]
+            direction TB
+            subgraph VERCEL_HOSTING["Vercel Platform"]
+                NEXTJS["📦 Next.js App<br/>─────────<br/>• SSR/SSG<br/>• API Routes<br/>• ISR"]
+                SERVERLESS["⚡ Serverless Functions<br/>─────────<br/>• Edge Runtime<br/>• Node.js Runtime"]
+            end
+            subgraph EXPO_HOSTING["Expo Application Services"]
+                EAS_BUILD["🔨 EAS Build<br/>─────────<br/>• iOS Builds<br/>• Android Builds"]
+                EAS_UPDATE["📲 EAS Update<br/>─────────<br/>• OTA Updates<br/>• Rollback"]
+            end
+        end
+        
+        subgraph BACKEND["🔧 Backend Services (Supabase)"]
+            direction TB
+            subgraph SUPABASE_CORE["Supabase Platform"]
+                SUPABASE_AUTH["🔐 Supabase Auth<br/>─────────<br/>• JWT Tokens<br/>• OAuth Providers<br/>• Row Level Security"]
+                SUPABASE_DB["🐘 PostgreSQL<br/>─────────<br/>• Tables métier<br/>• Stored Procedures<br/>• Triggers"]
+                SUPABASE_REALTIME["📡 Realtime<br/>─────────<br/>• WebSocket<br/>• Presence<br/>• Broadcast"]
+                SUPABASE_STORAGE["📁 Storage<br/>─────────<br/>• Images<br/>• Audio<br/>• Documents"]
+                SUPABASE_EDGE["⚡ Edge Functions<br/>─────────<br/>• Deno Runtime<br/>• API Endpoints"]
+            end
+        end
+        
+        subgraph AI_SERVICES["🤖 Services IA Externes"]
+            direction LR
+            OPENAI["🧠 OpenAI API<br/>─────────<br/>• GPT-4 (Adaptation texte)<br/>• Embeddings"]
+            GOOGLE_VISION["👁️ Google Cloud Vision<br/>─────────<br/>• OCR<br/>• Document AI"]
+            AWS_POLLY["🔊 AWS Polly<br/>─────────<br/>• Text-to-Speech<br/>• Neural Voices"]
+        end
+        
+        subgraph MONITORING["📊 Monitoring & Analytics"]
+            direction LR
+            VERCEL_ANALYTICS["📈 Vercel Analytics<br/>─────────<br/>• Web Vitals<br/>• Real User Metrics"]
+            SENTRY["🐛 Sentry<br/>─────────<br/>• Error Tracking<br/>• Performance"]
+            POSTHOG["📊 PostHog<br/>─────────<br/>• Product Analytics<br/>• Feature Flags"]
+        end
+        
+        subgraph CI_CD["🔄 CI/CD Pipeline"]
+            direction LR
+            GITHUB["🐙 GitHub<br/>─────────<br/>• Source Code<br/>• Actions"]
+            GITHUB_ACTIONS["⚙️ GitHub Actions<br/>─────────<br/>• Tests<br/>• Lint<br/>• Build"]
+            VERCEL_DEPLOY["🚀 Vercel Deploy<br/>─────────<br/>• Preview Deploys<br/>• Production"]
+        end
+    end
+    
+    %% Connexions Clients
+    BROWSER --> VERCEL_EDGE
+    IOS --> CLOUDFLARE
+    ANDROID --> CLOUDFLARE
+    
+    %% CDN vers Hosting
+    VERCEL_EDGE --> NEXTJS
+    CLOUDFLARE --> NEXTJS
+    CLOUDFLARE --> EAS_UPDATE
+    
+    %% Hosting vers Backend
+    NEXTJS --> SUPABASE_AUTH
+    NEXTJS --> SUPABASE_DB
+    NEXTJS --> SUPABASE_REALTIME
+    SERVERLESS --> SUPABASE_EDGE
+    
+    %% Backend interne
+    SUPABASE_AUTH --> SUPABASE_DB
+    SUPABASE_EDGE --> SUPABASE_DB
+    SUPABASE_EDGE --> SUPABASE_STORAGE
+    
+    %% Services IA
+    SERVERLESS --> OPENAI
+    SERVERLESS --> GOOGLE_VISION
+    SERVERLESS --> AWS_POLLY
+    SUPABASE_EDGE --> OPENAI
+    
+    %% Monitoring
+    NEXTJS --> VERCEL_ANALYTICS
+    NEXTJS --> SENTRY
+    NEXTJS --> POSTHOG
+    
+    %% CI/CD
+    GITHUB --> GITHUB_ACTIONS
+    GITHUB_ACTIONS --> VERCEL_DEPLOY
+    GITHUB_ACTIONS --> EAS_BUILD
+    VERCEL_DEPLOY --> NEXTJS
+    
+    %% Styles
+    classDef client fill:#64748B,stroke:#475569,color:#fff
+    classDef cdn fill:#F59E0B,stroke:#D97706,color:#fff
+    classDef hosting fill:#3B82F6,stroke:#2563EB,color:#fff
+    classDef backend fill:#10B981,stroke:#059669,color:#fff
+    classDef ai fill:#8B5CF6,stroke:#7C3AED,color:#fff
+    classDef monitoring fill:#EF4444,stroke:#DC2626,color:#fff
+    classDef cicd fill:#14B8A6,stroke:#0D9488,color:#fff
+    
+    class BROWSER,IOS,ANDROID client
+    class VERCEL_EDGE,CLOUDFLARE cdn
+    class NEXTJS,SERVERLESS,EAS_BUILD,EAS_UPDATE hosting
+    class SUPABASE_AUTH,SUPABASE_DB,SUPABASE_REALTIME,SUPABASE_STORAGE,SUPABASE_EDGE backend
+    class OPENAI,GOOGLE_VISION,AWS_POLLY ai
+    class VERCEL_ANALYTICS,SENTRY,POSTHOG monitoring
+    class GITHUB,GITHUB_ACTIONS,VERCEL_DEPLOY cicd

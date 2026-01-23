@@ -1,0 +1,54 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#438DD5', 'primaryTextColor': '#fff', 'primaryBorderColor': '#3C7FC0', 'lineColor': '#64748B', 'secondaryColor': '#08427B'}}}%%
+
+C4Container
+    title Lenny & Co - Diagramme de Conteneurs (C4 Niveau 2)
+    
+    Person(parent, "Parent", "Supervise les progrès")
+    Person(child, "Enfant DYS", "Utilise l'application")
+    
+    System_Boundary(lennyco, "Lenny & Co Platform") {
+        Container(web_app, "Application Web Parent", "Next.js 14, React, TypeScript", "Dashboard de supervision,<br/>vitrine marketing,<br/>gestion de compte")
+        
+        Container(mobile_app, "Application Mobile Enfant", "React Native, Expo, TypeScript", "Exercices interactifs,<br/>scan de documents,<br/>gamification")
+        
+        Container(design_system, "Design System", "React, CSS Modules, Storybook", "Composants UI partagés,<br/>tokens de design,<br/>accessibilité DYS")
+        
+        Container(api_gateway, "API Gateway", "Next.js API Routes / Edge Functions", "Orchestration des appels,<br/>validation,<br/>rate limiting")
+        
+        Container(event_bus, "Event Bus", "Supabase Realtime / Redis Pub/Sub", "Communication asynchrone<br/>entre modules")
+        
+        ContainerDb(database, "Base de Données", "PostgreSQL (Supabase)", "Utilisateurs, profils,<br/>progression, badges,<br/>contenus")
+        
+        ContainerDb(storage, "Stockage Fichiers", "Supabase Storage / S3", "Images, audio,<br/>documents scannés")
+        
+        ContainerDb(cache, "Cache", "Redis / Supabase Cache", "Sessions, données<br/>fréquemment accédées")
+    }
+    
+    System_Ext(supabase_auth, "Supabase Auth", "Authentification OAuth,<br/>JWT tokens")
+    System_Ext(openai, "OpenAI API", "Adaptation de texte IA")
+    System_Ext(google_vision, "Google Cloud Vision", "OCR")
+    System_Ext(aws_polly, "AWS Polly", "Text-to-Speech")
+    System_Ext(vercel, "Vercel", "Hébergement & CDN")
+    
+    Rel(parent, web_app, "Utilise", "HTTPS")
+    Rel(child, mobile_app, "Utilise", "HTTPS")
+    
+    Rel(web_app, design_system, "Importe", "npm")
+    Rel(mobile_app, design_system, "Importe", "npm")
+    
+    Rel(web_app, api_gateway, "Appelle", "HTTPS/JSON")
+    Rel(mobile_app, api_gateway, "Appelle", "HTTPS/JSON")
+    
+    Rel(api_gateway, database, "Lit/Écrit", "SQL")
+    Rel(api_gateway, storage, "Stocke/Récupère", "HTTPS")
+    Rel(api_gateway, cache, "Cache", "Redis Protocol")
+    Rel(api_gateway, event_bus, "Publie/Souscrit", "WebSocket")
+    
+    Rel(api_gateway, supabase_auth, "Authentifie", "HTTPS")
+    Rel(api_gateway, openai, "Adapte texte", "HTTPS")
+    Rel(api_gateway, google_vision, "OCR", "HTTPS")
+    Rel(api_gateway, aws_polly, "TTS", "HTTPS")
+    
+    Rel(web_app, vercel, "Déployé sur", "")
+    
+    UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")

@@ -1,0 +1,171 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#3B82F6', 'primaryTextColor': '#fff', 'primaryBorderColor': '#2563EB', 'lineColor': '#64748B', 'secondaryColor': '#FF9500', 'tertiaryColor': '#1ABFB4'}}}%%
+
+flowchart TB
+    subgraph IDENTITY["🔐 Module Identité & Accès"]
+        direction TB
+        subgraph ID_DOMAIN["Domain Layer"]
+            ID_E1["📦 User"]
+            ID_E2["📦 Credentials"]
+            ID_E3["📦 Session"]
+            ID_VO1["💎 Email"]
+            ID_VO2["💎 Password"]
+            ID_VO3["💎 Role"]
+        end
+        subgraph ID_APP["Application Layer"]
+            ID_UC1["⚡ RegisterUserUseCase"]
+            ID_UC2["⚡ LoginUseCase"]
+            ID_UC3["⚡ LogoutUseCase"]
+        end
+        subgraph ID_INFRA["Infrastructure Layer"]
+            ID_REPO["🗄️ UserRepository"]
+            ID_SESS["🗄️ SessionRepository"]
+            ID_HASH["🔧 PasswordHasher"]
+            ID_CTRL["🎮 AuthController"]
+        end
+    end
+
+    subgraph FAMILY["👨‍👩‍👧 Module Profil Famille"]
+        direction TB
+        subgraph FAM_DOMAIN["Domain Layer"]
+            FAM_E1["📦 ParentProfile"]
+            FAM_E2["📦 ChildProfile"]
+            FAM_E3["📦 FamilyUnit"]
+            FAM_VO1["💎 ProfileId"]
+            FAM_VO2["💎 ChildAge"]
+            FAM_VO3["💎 AvatarUrl"]
+        end
+        subgraph FAM_APP["Application Layer"]
+            FAM_UC1["⚡ CreateChildUseCase"]
+            FAM_UC2["⚡ UpdateProfileUseCase"]
+            FAM_UC3["⚡ LinkFamilyUseCase"]
+        end
+        subgraph FAM_INFRA["Infrastructure Layer"]
+            FAM_REPO1["🗄️ ParentRepository"]
+            FAM_REPO2["🗄️ ChildRepository"]
+            FAM_CTRL["🎮 FamilyController"]
+        end
+    end
+
+    subgraph LEARNING["📚 Module Apprentissage"]
+        direction TB
+        subgraph LEARN_DOMAIN["Domain Layer"]
+            LEARN_E1["📦 Mission"]
+            LEARN_E2["📦 Exercise"]
+            LEARN_E3["📦 Content"]
+            LEARN_AGG["🔷 Progress"]
+            LEARN_VO1["💎 Score"]
+            LEARN_VO2["💎 ErrorType"]
+            LEARN_SVC["🔧 ErrorDetectionService"]
+        end
+        subgraph LEARN_APP["Application Layer"]
+            LEARN_UC1["⚡ StartMissionUseCase"]
+            LEARN_UC2["⚡ SubmitResultUseCase"]
+            LEARN_UC3["⚡ GetProgressUseCase"]
+        end
+        subgraph LEARN_INFRA["Infrastructure Layer"]
+            LEARN_REPO1["🗄️ MissionRepository"]
+            LEARN_REPO2["🗄️ ProgressRepository"]
+            LEARN_PROV["🌐 ContentProvider"]
+            LEARN_CTRL["🎮 LearningController"]
+        end
+    end
+
+    subgraph GAMIFICATION["🎮 Module Gamification"]
+        direction TB
+        subgraph GAME_DOMAIN["Domain Layer"]
+            GAME_E1["📦 PlayerProfile"]
+            GAME_E2["📦 Badge"]
+            GAME_E3["📦 Achievement"]
+            GAME_VO1["💎 ExperiencePoints"]
+            GAME_VO2["💎 Level"]
+            GAME_VO3["💎 Streak"]
+            GAME_SVC["🔧 XPCalculationService"]
+        end
+        subgraph GAME_APP["Application Layer"]
+            GAME_UC1["⚡ AwardXPUseCase"]
+            GAME_UC2["⚡ UnlockBadgeUseCase"]
+            GAME_UC3["⚡ LevelUpUseCase"]
+        end
+        subgraph GAME_INFRA["Infrastructure Layer"]
+            GAME_REPO1["🗄️ PlayerRepository"]
+            GAME_REPO2["🗄️ BadgeRepository"]
+            GAME_CTRL["🎮 GamificationController"]
+        end
+    end
+
+    subgraph SUPERVISION["👁️ Module Supervision Parentale"]
+        direction TB
+        subgraph SUP_DOMAIN["Domain Layer"]
+            SUP_E1["📦 Dashboard"]
+            SUP_E2["📦 Alert"]
+            SUP_E3["📦 Advice"]
+            SUP_E4["📦 ActivityLog"]
+            SUP_VO1["💎 Statistic"]
+            SUP_VO2["💎 AlertSeverity"]
+            SUP_SVC["🔧 AlertGenerationService"]
+        end
+        subgraph SUP_APP["Application Layer"]
+            SUP_UC1["⚡ GetDashboardUseCase"]
+            SUP_UC2["⚡ GenerateAlertUseCase"]
+            SUP_UC3["⚡ GetActivityUseCase"]
+        end
+        subgraph SUP_INFRA["Infrastructure Layer"]
+            SUP_REPO1["🗄️ StatisticsRepository"]
+            SUP_REPO2["🗄️ AlertRepository"]
+            SUP_CTRL["🎮 DashboardController"]
+        end
+    end
+
+    subgraph ACCESSIBILITY["♿ Module Accessibilité"]
+        direction TB
+        subgraph ACC_DOMAIN["Domain Layer"]
+            ACC_E1["📦 ScanRequest"]
+            ACC_E2["📦 AdaptedContent"]
+            ACC_E3["📦 AccessibilitySettings"]
+            ACC_VO1["💎 FontSettings"]
+            ACC_VO2["💎 SyllableColoring"]
+            ACC_SVC["🔧 TextAdaptationService"]
+        end
+        subgraph ACC_APP["Application Layer"]
+            ACC_UC1["⚡ ScanDocumentUseCase"]
+            ACC_UC2["⚡ AdaptTextUseCase"]
+            ACC_UC3["⚡ TextToSpeechUseCase"]
+        end
+        subgraph ACC_INFRA["Infrastructure Layer"]
+            ACC_PROV1["🌐 OCRProvider"]
+            ACC_PROV2["🌐 AIAdaptationProvider"]
+            ACC_PROV3["🌐 TTSProvider"]
+            ACC_CTRL["🎮 AccessibilityController"]
+        end
+    end
+
+    %% Légende
+    subgraph LEGEND["📋 Légende"]
+        L1["📦 Entité"]
+        L2["💎 Value Object"]
+        L3["🔷 Agrégat"]
+        L4["🔧 Service Domaine"]
+        L5["⚡ Use Case"]
+        L6["🗄️ Repository"]
+        L7["🌐 Provider Externe"]
+        L8["🎮 Controller"]
+    end
+
+    classDef entity fill:#3B82F6,stroke:#2563EB,color:#fff
+    classDef valueObject fill:#8B5CF6,stroke:#7C3AED,color:#fff
+    classDef aggregate fill:#EC4899,stroke:#DB2777,color:#fff
+    classDef service fill:#10B981,stroke:#059669,color:#fff
+    classDef usecase fill:#F59E0B,stroke:#D97706,color:#fff
+    classDef repository fill:#6366F1,stroke:#4F46E5,color:#fff
+    classDef provider fill:#14B8A6,stroke:#0D9488,color:#fff
+    classDef controller fill:#EF4444,stroke:#DC2626,color:#fff
+
+    class ID_E1,ID_E2,ID_E3,FAM_E1,FAM_E2,FAM_E3,LEARN_E1,LEARN_E2,LEARN_E3,GAME_E1,GAME_E2,GAME_E3,SUP_E1,SUP_E2,SUP_E3,SUP_E4,ACC_E1,ACC_E2,ACC_E3,L1 entity
+    class ID_VO1,ID_VO2,ID_VO3,FAM_VO1,FAM_VO2,FAM_VO3,LEARN_VO1,LEARN_VO2,GAME_VO1,GAME_VO2,GAME_VO3,SUP_VO1,SUP_VO2,ACC_VO1,ACC_VO2,L2 valueObject
+    class LEARN_AGG,L3 aggregate
+    class LEARN_SVC,GAME_SVC,SUP_SVC,ACC_SVC,L4 service
+    class ID_UC1,ID_UC2,ID_UC3,FAM_UC1,FAM_UC2,FAM_UC3,LEARN_UC1,LEARN_UC2,LEARN_UC3,GAME_UC1,GAME_UC2,GAME_UC3,SUP_UC1,SUP_UC2,SUP_UC3,ACC_UC1,ACC_UC2,ACC_UC3,L5 usecase
+    class ID_REPO,ID_SESS,FAM_REPO1,FAM_REPO2,LEARN_REPO1,LEARN_REPO2,GAME_REPO1,GAME_REPO2,SUP_REPO1,SUP_REPO2,L6 repository
+    class LEARN_PROV,ACC_PROV1,ACC_PROV2,ACC_PROV3,L7 provider
+    class ID_CTRL,FAM_CTRL,LEARN_CTRL,GAME_CTRL,SUP_CTRL,ACC_CTRL,L8 controller
+    class ID_HASH service

@@ -1,0 +1,71 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#3B82F6', 'primaryTextColor': '#1E293B', 'primaryBorderColor': '#2563EB', 'lineColor': '#64748B', 'fontSize': '14px'}}}%%
+
+flowchart TB
+    subgraph TITLE["🔗 INTERACTIONS ENTRE DOMAINES MÉTIERS - Lenny & Co"]
+        direction TB
+        
+        subgraph IDENTITY["🔐 IDENTITÉ & ACCÈS"]
+            ID_CORE["User<br/>Credentials<br/>Session"]
+        end
+        
+        subgraph FAMILY["👨‍👩‍👧 PROFIL FAMILLE"]
+            FAM_CORE["ParentProfile<br/>ChildProfile<br/>FamilyUnit"]
+        end
+        
+        subgraph LEARNING["📚 APPRENTISSAGE"]
+            LEARN_CORE["Mission<br/>Exercise<br/>Progress"]
+        end
+        
+        subgraph GAMIFICATION["🎮 GAMIFICATION"]
+            GAME_CORE["PlayerProfile<br/>Badge<br/>XP / Level"]
+        end
+        
+        subgraph SUPERVISION["👁️ SUPERVISION PARENTALE"]
+            SUP_CORE["Dashboard<br/>Alert<br/>Statistics"]
+        end
+        
+        subgraph ACCESSIBILITY["♿ ACCESSIBILITÉ"]
+            ACC_CORE["ScanRequest<br/>AdaptedContent<br/>TTS Settings"]
+        end
+    end
+    
+    %% Commandes et flux de données entre domaines
+    
+    %% Identité vers Famille
+    IDENTITY -->|"① Créer profil famille<br/>après inscription"| FAMILY
+    
+    %% Famille vers Apprentissage
+    FAMILY -->|"② Récupérer niveau enfant<br/>pour adapter difficulté"| LEARNING
+    
+    %% Apprentissage vers Gamification
+    LEARNING -->|"③ Attribuer XP<br/>après exercice complété"| GAMIFICATION
+    
+    %% Apprentissage vers Supervision
+    LEARNING -->|"④ Envoyer résultats<br/>pour statistiques"| SUPERVISION
+    
+    %% Gamification vers Supervision
+    GAMIFICATION -->|"⑤ Notifier badge débloqué<br/>au parent"| SUPERVISION
+    
+    %% Accessibilité vers Apprentissage
+    ACCESSIBILITY -->|"⑥ Fournir contenu adapté<br/>pour exercices"| LEARNING
+    
+    %% Supervision vers Famille (feedback)
+    SUPERVISION -.->|"⑦ Mettre à jour préférences<br/>de notification"| FAMILY
+    
+    %% Gamification vers Famille
+    GAMIFICATION -->|"⑧ Mettre à jour niveau<br/>profil enfant"| FAMILY
+    
+    %% Styles
+    classDef identity fill:#3B82F6,stroke:#2563EB,color:#fff,stroke-width:3px
+    classDef family fill:#8B5CF6,stroke:#7C3AED,color:#fff,stroke-width:3px
+    classDef learning fill:#10B981,stroke:#059669,color:#fff,stroke-width:3px
+    classDef gamification fill:#F59E0B,stroke:#D97706,color:#fff,stroke-width:3px
+    classDef supervision fill:#EF4444,stroke:#DC2626,color:#fff,stroke-width:3px
+    classDef accessibility fill:#14B8A6,stroke:#0D9488,color:#fff,stroke-width:3px
+    
+    class ID_CORE identity
+    class FAM_CORE family
+    class LEARN_CORE learning
+    class GAME_CORE gamification
+    class SUP_CORE supervision
+    class ACC_CORE accessibility
