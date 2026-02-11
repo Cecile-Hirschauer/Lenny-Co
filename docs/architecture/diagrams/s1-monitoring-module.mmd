@@ -1,0 +1,222 @@
+classDiagram
+  direction TB
+
+  namespace Domain {
+    class AlertType {
+      <<enumeration>>
+      CONFUSION_DETECTED
+      FATIGUE_DETECTED
+      REGRESSION
+      MILESTONE_REACHED
+    }
+    class AlertSeverity {
+      <<enumeration>>
+      DANGER
+      WARNING
+      INFO
+      SUCCESS
+    }
+    class ObserverRef {
+      <<value object>>
+      +UUID userId
+    }
+    class ObserveeRef {
+      <<value object>>
+      +UUID childId
+    }
+    class MessageContent {
+      <<value object>>
+      +String text
+    }
+    class Dashboard {
+      <<aggregate root>>
+      +ObserverRef observer
+      +List~ObserveeRef~ observees
+      +List~Alert~ alerts
+      +List~Message~ messages
+    }
+    class Alert {
+      <<entity>>
+      +UUID id
+      +ObserveeRef child
+      +AlertType type
+      +AlertSeverity severity
+      +String title
+      +String description
+      +String recommendation
+      +DateTime createdAt
+      +Boolean dismissed
+      +dismiss()
+    }
+    class Message {
+      <<entity>>
+      +UUID id
+      +ObserverRef sender
+      +ObserveeRef receiver
+      +MessageContent content
+      +DateTime sentAt
+    }
+    class WeeklyReport {
+      <<entity>>
+      +UUID id
+      +ObserveeRef child
+      +ObserverRef recipient
+      +String summary
+      +DateTime generatedAt
+    }
+    class AlertRepository {
+      <<interface>>
+      +save(Alert) Alert
+      +findByChild(ObserveeRef) List~Alert~
+      +findActiveByChild(ObserveeRef) List~Alert~
+    }
+    class MessageRepository {
+      <<interface>>
+      +save(Message) Message
+      +findBetween(ObserverRef, ObserveeRef) List~Message~
+    }
+    class ReportRepository {
+      <<interface>>
+      +save(WeeklyReport) WeeklyReport
+      +findLatest(ObserveeRef) WeeklyReport?
+    }
+    class AlertAnalyzer {
+      <<domain service>>
+      +analyzeProgress(WeeklyStatComputed) List~Alert~
+    }
+    class ReportGenerator {
+      <<domain service>>
+      +generate(ObserveeRef, stats, alerts) WeeklyReport
+    }
+    class AlertRaised {
+      <<domain event>>
+      +Alert alert
+    }
+    class MessageSent {
+      <<domain event>>
+      +Message message
+    }
+    class ReportGenerated {
+      <<domain event>>
+      +WeeklyReport report
+    }
+  }
+
+  namespace Application {
+    class SendEncouragementCommand {
+      <<command>>
+      +String senderId
+      +String childId
+      +String message
+    }
+    class DismissAlertCommand {
+      <<command>>
+      +String alertId
+    }
+    class GenerateWeeklyReportCommand {
+      <<command>>
+      +String childId
+    }
+    class GetDashboardDataQuery {
+      <<query>>
+      +String parentId
+    }
+    class GetAlertsQuery {
+      <<query>>
+      +String childId
+    }
+    class GetDashboardHandler {
+      <<handler>>
+      -AlertRepository alerts
+      -MessageRepository messages
+      +handle(GetDashboardDataQuery) DashboardDTO
+    }
+    class SendEncouragementHandler {
+      <<handler>>
+      -MessageRepository repository
+      -NotificationSender notifier
+      +handle(SendEncouragementCommand)
+    }
+    class DashboardDTO {
+      <<dto>>
+      +List~AlertDTO~ alerts
+      +List~MessageDTO~ recentMessages
+      +ReportDTO latestReport
+    }
+    class AlertDTO {
+      <<dto>>
+      +String id
+      +String type
+      +String severity
+      +String title
+      +String recommendation
+    }
+    class MessageDTO {
+      <<dto>>
+      +String id
+      +String senderName
+      +String content
+      +String sentAt
+    }
+    class NotificationSender {
+      <<port>>
+      +sendToChild(ObserveeRef, String)
+      +sendToObserver(ObserverRef, String)
+    }
+    class EventPublisher {
+      <<port>>
+      +publish(DomainEvent)
+    }
+  }
+
+  namespace Infrastructure {
+    class MonitoringRoutes {
+      <<http routes>>
+      +GET /dashboard/parentId
+      +GET /alerts/childId
+      +POST /messages
+      +GET /reports/childId/weekly
+    }
+    class AlertTable {
+      <<exposed table>>
+      +uuid id PK
+      +uuid child_id FK
+      +varchar type
+      +varchar severity
+      +varchar title
+      +text description
+      +text recommendation
+      +boolean dismissed
+    }
+    class MessageTable {
+      <<exposed table>>
+      +uuid id PK
+      +uuid sender_id FK
+      +uuid receiver_id FK
+      +text content
+      +timestamp sent_at
+    }
+    class EmailNotificationSender {
+      <<adapter>>
+    }
+    class PushNotificationSender {
+      <<adapter V2>>
+    }
+  }
+
+  Dashboard "1" *-- "*" Alert
+  Dashboard "1" *-- "*" Message
+  Dashboard --> ObserverRef
+  Dashboard --> ObserveeRef
+  Alert --> AlertType
+  Alert --> AlertSeverity
+  Message --> MessageContent
+
+  GetDashboardHandler --> AlertRepository
+  GetDashboardHandler --> MessageRepository
+  SendEncouragementHandler --> MessageRepository
+  SendEncouragementHandler --> NotificationSender
+  EmailNotificationSender ..|> NotificationSender : implements
+  PushNotificationSender ..|> NotificationSender : implements
+  MonitoringRoutes --> GetDashboardHandler
+  MonitoringRoutes --> SendEncouragementHandler

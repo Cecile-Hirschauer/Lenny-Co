@@ -1,0 +1,76 @@
+graph TB
+  subgraph Clients
+    BROWSER["Navigateur Web\nParent / Orthophoniste V2"]
+    MOBILE["App Mobile Kotlin\nEnfant — V2"]
+  end
+
+  subgraph Vercel["Vercel — Frontend Hosting"]
+    NEXT["Next.js Monorepo"]
+    HOMEPAGE["Homepage\npages publiques"]
+    DASHBOARD["Dashboard Parent\npages protégées SSR"]
+    STORYBOOK["Storybook\nDesign System"]
+    NEXT --- HOMEPAGE
+    NEXT --- DASHBOARD
+  end
+
+  subgraph Backend["Railway ou Fly.io — Backend Hosting"]
+    KTOR["Ktor Server\nAPI REST + WebSocket\n─────\nPolicyEnforcerMiddleware ABAC\nJWT Auth middleware\nCORS - Rate limiting"]
+    M_AUTHZ["authorization\ntransverse"]
+    subgraph Modules["Modules Kotlin — Clean Architecture"]
+      M_ID["identity"]
+      M_PR["progress"]
+      M_MO["monitoring"]
+      M_AC["achievement"]
+      M_LE["learning V2"]
+    end
+    KTOR --> M_AUTHZ
+    M_AUTHZ --> M_ID
+    M_AUTHZ --> M_PR
+    M_AUTHZ --> M_MO
+    M_AUTHZ --> M_AC
+    M_AUTHZ --> M_LE
+  end
+
+  subgraph Supabase["Supabase — Data Platform"]
+    PG["PostgreSQL\nBase principale\nRLS activé\n─────\nDouble barrière :\npolicies RLS sur\ncare_relations"]
+    AUTH_SB["Supabase Auth\nSSO - magic links\noptionnel"]
+    STORAGE["Supabase Storage\nAvatars - scans OCR V2"]
+    REALTIME["Supabase Realtime\nNotifications live\nmessages parent-enfant"]
+    AUDIT["AccessAuditLog\ntrace chaque décision\nd'autorisation"]
+  end
+
+  subgraph External["Services Externes"]
+    BREVO["Brevo\nemails transactionnels\nrapports hebdo"]
+    N8N["n8n\nworkflows automation\ncron jobs"]
+    OCR["Google Vision API\nOCR scan devoirs — V2"]
+    AI["OpenAI ou Claude API\nadaptation exercices — V2"]
+  end
+
+  subgraph CICD["CI/CD"]
+    GH["GitHub\nMonorepo frontend\n+ repo backend"]
+    GHA["GitHub Actions\nTests - Build - Deploy"]
+    GH --> GHA
+  end
+
+  BROWSER --> NEXT
+  MOBILE -.-> KTOR
+
+  NEXT -- "REST API\nJWT Bearer Token" --> KTOR
+  NEXT -- "WebSocket" --> REALTIME
+
+  M_ID -- "Exposed ORM\nMigrations SQL" --> PG
+  M_PR -- "Exposed ORM" --> PG
+  M_MO -- "Exposed ORM" --> PG
+  M_AC -- "Exposed ORM" --> PG
+  M_MO -- "Log autorisations" --> AUDIT
+  M_ID -.- AUTH_SB
+  M_MO -.- STORAGE
+  M_MO -- "Publish events" --> REALTIME
+  M_LE -.- OCR
+  M_LE -.- AI
+
+  KTOR -- "SMTP / API" --> BREVO
+  N8N -- "Cron : rapport hebdo\nCron : calcul stats" --> KTOR
+
+  GHA -- "Deploy frontend" --> Vercel
+  GHA -- "Deploy backend" --> Backend

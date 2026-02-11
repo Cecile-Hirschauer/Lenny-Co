@@ -1,0 +1,192 @@
+classDiagram
+  direction TB
+
+  namespace Domain {
+    class MissionId {
+      <<value object>>
+      +UUID value
+    }
+    class ExerciseType {
+      <<enumeration>>
+      PHONEME_DISCRIMINATION
+      LETTER_RECOGNITION
+      WORD_READING
+      SENTENCE_BUILDING
+      OCR_SCAN
+    }
+    class DifficultyLevel {
+      <<value object>>
+      +Int level
+      +String label
+    }
+    class OcrText {
+      <<value object>>
+      +String rawText
+      +String processedText
+    }
+    class AdaptiveConfig {
+      <<value object>>
+      +DifficultyLevel current
+      +List~ConfusionType~ knownWeaknesses
+      +Int consecutiveSuccesses
+    }
+    class Mission {
+      <<aggregate root>>
+      +MissionId id
+      +UUID childId
+      +List~Exercise~ exercises
+      +DifficultyLevel difficulty
+      +AdaptiveConfig config
+      +start()
+      +submitAnswer(exerciseId, answer) Boolean
+      +complete()
+    }
+    class Exercise {
+      <<entity>>
+      +UUID id
+      +ExerciseType type
+      +String prompt
+      +String expectedAnswer
+      +Boolean completed
+      +Int score
+    }
+    class ScanResult {
+      <<entity>>
+      +UUID id
+      +OcrText text
+      +List~Exercise~ generatedExercises
+    }
+    class MissionRepository {
+      <<interface>>
+      +save(Mission) Mission
+      +findActive(UUID) Mission?
+    }
+    class ExerciseCatalogRepository {
+      <<interface>>
+      +findByTypeAndDifficulty(ExerciseType, DifficultyLevel) List~Exercise~
+    }
+    class DifficultyAdapter {
+      <<domain service>>
+      +adapt(AdaptiveConfig, Int) DifficultyLevel
+    }
+    class ExerciseSelector {
+      <<domain service>>
+      +select(AdaptiveConfig) List~Exercise~
+    }
+    class MissionStarted {
+      <<domain event>>
+      +UUID childId
+      +MissionId missionId
+    }
+    class ExerciseCompleted {
+      <<domain event>>
+      +UUID childId
+      +MissionId missionId
+      +Int score
+      +Int durationMinutes
+      +List~ConfusionType~ confusions
+    }
+    class MissionCompleted {
+      <<domain event>>
+      +UUID childId
+      +MissionId missionId
+      +Int totalScore
+    }
+  }
+
+  namespace Application {
+    class StartMissionCommand {
+      <<command>>
+      +String childId
+    }
+    class SubmitAnswerCommand {
+      <<command>>
+      +String missionId
+      +String exerciseId
+      +String answer
+    }
+    class ProcessScanCommand {
+      <<command>>
+      +String childId
+      +Bytes imageData
+    }
+    class GetCurrentMissionQuery {
+      <<query>>
+      +String childId
+    }
+    class StartMissionHandler {
+      <<handler>>
+      -MissionRepository repository
+      -ExerciseSelector selector
+      +handle(StartMissionCommand) MissionDTO
+    }
+    class SubmitAnswerHandler {
+      <<handler>>
+      -MissionRepository repository
+      -DifficultyAdapter adapter
+      -EventPublisher publisher
+      +handle(SubmitAnswerCommand) ExerciseResultDTO
+    }
+    class MissionDTO {
+      <<dto>>
+      +String id
+      +List~ExerciseDTO~ exercises
+      +String difficulty
+    }
+    class OcrProvider {
+      <<port>>
+      +extractText(Bytes) OcrText
+    }
+    class AiAdapter {
+      <<port>>
+      +generateExercises(OcrText, AdaptiveConfig) List~Exercise~
+    }
+  }
+
+  namespace Infrastructure {
+    class LearningRoutes {
+      <<http routes>>
+      +POST /missions/start
+      +POST /missions/id/submit
+      +POST /scan
+      +GET /missions/current/childId
+    }
+    class MissionTable {
+      <<exposed table>>
+      +uuid id PK
+      +uuid child_id FK
+      +varchar difficulty
+      +boolean active
+    }
+    class ExerciseTable {
+      <<exposed table>>
+      +uuid id PK
+      +uuid mission_id FK
+      +varchar type
+      +text prompt
+      +varchar expected_answer
+      +integer score
+    }
+    class GoogleVisionOcrProvider {
+      <<adapter>>
+    }
+    class OpenAiExerciseAdapter {
+      <<adapter>>
+    }
+  }
+
+  Mission "1" *-- "1..*" Exercise
+  Mission --> DifficultyLevel
+  Mission --> AdaptiveConfig
+  ScanResult --> OcrText
+  ScanResult "1" --> "*" Exercise
+  Exercise --> ExerciseType
+
+  StartMissionHandler --> MissionRepository
+  StartMissionHandler --> ExerciseSelector
+  SubmitAnswerHandler --> MissionRepository
+  SubmitAnswerHandler --> DifficultyAdapter
+  GoogleVisionOcrProvider ..|> OcrProvider : implements
+  OpenAiExerciseAdapter ..|> AiAdapter : implements
+  LearningRoutes --> StartMissionHandler
+  LearningRoutes --> SubmitAnswerHandler

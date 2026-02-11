@@ -1,0 +1,26 @@
+sequenceDiagram
+  participant N as n8n (cron)
+  participant P as progress
+  participant M as monitoring
+
+  Note over N: Chaque dimanche soir
+
+  N->>P: ComputeWeeklyStat(childId)
+  P->>P: StatCalculator.computeWeekly()
+  P->>M: WeeklyStatComputed(childId, totalTime, successRate, topConfusions)
+
+  M->>M: AlertAnalyzer.analyzeProgress()
+
+  alt Confusions détectées
+    M->>M: Alert(DANGER, Confusions b/d récurrentes)
+    M-->>M: AlertRaised
+  end
+
+  alt Régression détectée
+    M->>M: Alert(WARNING, Baisse du taux de réussite)
+    M-->>M: AlertRaised
+  end
+
+  M->>M: ReportGenerator.generate()
+  M-->>M: ReportGenerated
+  M-->>M: NotificationSender email rapport hebdo

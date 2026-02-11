@@ -1,0 +1,109 @@
+graph TB
+  IDENTITY["IDENTITY
+  ───────────
+  Auth, Comptes, Rôles
+  Relations, Profils
+  ───────────
+  ParentAccount
+  ChildProfile
+  CareRelation
+  RelationType
+  RelationStatus"]
+
+  AUTHZ["AUTHORIZATION
+  (transverse - Application layer)
+  ───────────
+  PolicyEvaluator
+  PermissionMatrix
+  AccessAuditLog
+  ───────────
+  Vérifie CareRelation active
+  avant chaque accès"]
+
+  PROGRESS["PROGRESS
+  ───────────
+  Données brutes
+  d'apprentissage
+  ───────────
+  ProgressRecord
+  ActivityEntry
+  DailyStat"]
+
+  MONITORING["MONITORING
+  ───────────
+  Observation, Alertes
+  Communication
+  ───────────
+  Dashboard, Alert
+  Message, WeeklyReport"]
+
+  ACHIEVEMENT["ACHIEVEMENT
+  ───────────
+  Gamification
+  Motivation
+  ───────────
+  Player, Badge
+  Level, Experience"]
+
+  LEARNING["LEARNING
+  ───────────
+  Missions, Exercices
+  IA, OCR
+  ───────────
+  Mission, Exercise
+  ScanResult"]
+
+  SK(["SHARED KERNEL
+  UserId"])
+
+  IDENTITY -- "AccountCreated
+  → Créer profil joueur" --> ACHIEVEMENT
+  IDENTITY -- "ChildProfileAdded
+  → Initialiser suivi enfant" --> PROGRESS
+  IDENTITY -- "CareRelationEstablished
+  → Créer Dashboard
+  → Autoriser accès ABAC" --> MONITORING
+  IDENTITY -- "CareRelationRevoked
+  → Couper tous les accès
+  immédiatement" --> AUTHZ
+
+  IDENTITY -- "Fournit CareRelation
+  RelationType, RelationStatus" --> AUTHZ
+
+  AUTHZ -. "Vérifie chaque requête
+  avant exécution" .-> PROGRESS
+  AUTHZ -. "Vérifie chaque requête
+  avant exécution" .-> MONITORING
+  AUTHZ -. "Vérifie chaque requête
+  avant exécution" .-> ACHIEVEMENT
+  AUTHZ -. "Vérifie chaque requête
+  avant exécution" .-> LEARNING
+
+  LEARNING -- "ExerciseCompleted
+  → Enregistrer activité
+  (score, durée, confusions)" --> PROGRESS
+  LEARNING -- "MissionCompleted
+  → Attribuer XP
+  → Évaluer badges" --> ACHIEVEMENT
+
+  PROGRESS -- "ActivityRecorded
+  → Mettre à jour dashboard" --> MONITORING
+  PROGRESS -- "WeeklyStatComputed
+  → Analyser et générer alertes
+  → Produire rapport hebdo" --> MONITORING
+
+  ACHIEVEMENT -- "BadgeUnlocked
+  → Notifier parent
+  → Ajouter à timeline" --> MONITORING
+  ACHIEVEMENT -- "LevelUp
+  → Notifier parent" --> MONITORING
+
+  MONITORING -. "RecommendationIssued
+  → Adapter exercices
+  (V2 : orthophoniste)" .-> LEARNING
+
+  SK -.- IDENTITY
+  SK -.- PROGRESS
+  SK -.- MONITORING
+  SK -.- ACHIEVEMENT
+  SK -.- LEARNING

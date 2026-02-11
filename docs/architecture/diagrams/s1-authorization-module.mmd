@@ -1,0 +1,110 @@
+classDiagram
+  direction TB
+
+  namespace ApplicationShared {
+    class AccessScope {
+      <<value object>>
+      +UserId subject
+      +ProfileType subjectProfile
+      +UserId targetChild
+      +Action action
+      +ResourceType resourceType
+      +DateTime timestamp
+    }
+    class AuthorizationDecision {
+      <<value object>>
+      +Decision decision
+      +String? reason
+      +UUID auditId
+    }
+    class Decision {
+      <<enumeration>>
+      GRANTED
+      DENIED
+    }
+    class Policy {
+      <<interface>>
+      +evaluate(AccessScope) AuthorizationDecision
+    }
+    class PolicyEvaluator {
+      <<application service>>
+      -List~Policy~ policies
+      -AccessAuditPort auditLogger
+      +evaluate(AccessScope) AuthorizationDecision
+    }
+    class PermissionMatrix {
+      <<application service>>
+      +getPermissions(RelationType) Set~Permission~
+      +isAllowed(RelationType, Action, ResourceType) Boolean
+    }
+    class ActiveRelationRequiredPolicy {
+      <<policy>>
+      -CareRelationRepository relations
+      +evaluate(AccessScope) AuthorizationDecision
+    }
+    class ParentalScopePolicy {
+      <<policy>>
+      -PermissionMatrix matrix
+      +evaluate(AccessScope) AuthorizationDecision
+    }
+    class TherapeuticScopePolicy {
+      <<policy V2>>
+      -PermissionMatrix matrix
+      +evaluate(AccessScope) AuthorizationDecision
+    }
+    class EducationalScopePolicy {
+      <<policy V3>>
+      -PermissionMatrix matrix
+      +evaluate(AccessScope) AuthorizationDecision
+    }
+    class AccessAuditPort {
+      <<port>>
+      +log(AccessScope, AuthorizationDecision)
+    }
+  }
+
+  namespace Infrastructure {
+    class PolicyEnforcerMiddleware {
+      <<ktor middleware>>
+      -PolicyEvaluator evaluator
+      +intercept(request) Response or Continue
+    }
+    class AccessAuditLogger {
+      <<adapter>>
+      +log(AccessScope, AuthorizationDecision)
+    }
+    class AccessAuditTable {
+      <<exposed table>>
+      +uuid id PK
+      +timestamp timestamp
+      +uuid subject_id
+      +uuid target_child_id
+      +varchar action
+      +varchar resource_type
+      +varchar decision
+      +varchar reason
+      +uuid care_relation_id
+    }
+    class RlsPolicySync {
+      <<adapter>>
+      +syncPolicies()
+    }
+  }
+
+  ActiveRelationRequiredPolicy ..|> Policy
+  ParentalScopePolicy ..|> Policy
+  TherapeuticScopePolicy ..|> Policy
+  EducationalScopePolicy ..|> Policy
+
+  PolicyEvaluator --> Policy : evaluates N policies
+  PolicyEvaluator --> AccessAuditPort : logs each decision
+  PolicyEvaluator --> AccessScope : receives
+  PolicyEvaluator --> AuthorizationDecision : returns
+
+  ActiveRelationRequiredPolicy --> CareRelationRepository : checks active relation
+  ParentalScopePolicy --> PermissionMatrix
+  TherapeuticScopePolicy --> PermissionMatrix
+  EducationalScopePolicy --> PermissionMatrix
+
+  AccessAuditLogger ..|> AccessAuditPort : implements
+  PolicyEnforcerMiddleware --> PolicyEvaluator

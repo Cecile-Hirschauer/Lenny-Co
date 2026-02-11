@@ -1,0 +1,171 @@
+classDiagram
+  direction TB
+
+  namespace Domain {
+    class ProgressId {
+      <<value object>>
+      +UUID value
+    }
+    class ChildRef {
+      <<value object>>
+      +UUID childId
+    }
+    class ScoreValue {
+      <<value object>>
+      +Int value
+    }
+    class Duration {
+      <<value object>>
+      +Int minutes
+    }
+    class ConfusionType {
+      <<enumeration>>
+      B_D
+      P_Q
+      M_N
+      ON_AN
+    }
+    class ProgressRecord {
+      <<aggregate root>>
+      +ProgressId id
+      +ChildRef child
+      +List~ActivityEntry~ activities
+      +List~DailyStat~ dailyStats
+      +recordActivity(ActivityEntry)
+    }
+    class ActivityEntry {
+      <<entity>>
+      +UUID id
+      +DateTime timestamp
+      +String exerciseType
+      +ScoreValue score
+      +Duration duration
+      +List~ConfusionType~ confusions
+    }
+    class DailyStat {
+      <<entity>>
+      +LocalDate date
+      +Duration totalTime
+      +Int exerciseCount
+      +Double successRate
+    }
+    class ProgressRepository {
+      <<interface>>
+      +save(ProgressRecord) ProgressRecord
+      +findByChild(ChildRef) ProgressRecord?
+    }
+    class ActivityRepository {
+      <<interface>>
+      +findByChildAndDateRange(ChildRef, LocalDate, LocalDate) List~ActivityEntry~
+    }
+    class StatCalculator {
+      <<domain service>>
+      +computeDaily(List~ActivityEntry~) DailyStat
+      +computeWeekly(List~DailyStat~) WeeklyStat
+    }
+    class ActivityRecorded {
+      <<domain event>>
+      +ChildRef child
+      +ActivityEntry activity
+    }
+    class WeeklyStatComputed {
+      <<domain event>>
+      +ChildRef child
+      +Duration totalTime
+      +Double successRate
+      +List~ConfusionType~ topConfusions
+    }
+  }
+
+  namespace Application {
+    class RecordActivityCommand {
+      <<command>>
+      +String childId
+      +String exerciseType
+      +Int score
+      +Int durationMinutes
+      +List~String~ confusions
+    }
+    class GetDailyStatsQuery {
+      <<query>>
+      +String childId
+      +LocalDate from
+      +LocalDate to
+    }
+    class GetWeeklyProgressQuery {
+      <<query>>
+      +String childId
+    }
+    class RecordActivityHandler {
+      <<handler>>
+      -ProgressRepository repository
+      -EventPublisher publisher
+      +handle(RecordActivityCommand)
+    }
+    class GetWeeklyProgressHandler {
+      <<handler>>
+      -ProgressRepository repository
+      -StatCalculator calculator
+      +handle(GetWeeklyProgressQuery) WeeklyReportDTO
+    }
+    class StatDTO {
+      <<dto>>
+      +String date
+      +Int totalMinutes
+      +Int exerciseCount
+      +Double successRate
+    }
+    class ActivityDTO {
+      <<dto>>
+      +String id
+      +String timestamp
+      +String type
+      +Int score
+    }
+    class WeeklyReportDTO {
+      <<dto>>
+      +List~StatDTO~ dailyStats
+      +Int totalMinutes
+      +Double avgSuccessRate
+    }
+  }
+
+  namespace Infrastructure {
+    class ProgressRoutes {
+      <<http routes>>
+      +POST /progress/activity
+      +GET /progress/childId/daily
+      +GET /progress/childId/weekly
+    }
+    class ProgressTable {
+      <<exposed table>>
+      +uuid id PK
+      +uuid child_id FK
+    }
+    class ActivityTable {
+      <<exposed table>>
+      +uuid id PK
+      +uuid progress_id FK
+      +timestamp created_at
+      +varchar exercise_type
+      +integer score
+      +integer duration_minutes
+    }
+    class ExposedProgressRepository {
+      <<adapter>>
+    }
+  }
+
+  ProgressRecord "1" *-- "*" ActivityEntry
+  ProgressRecord "1" *-- "*" DailyStat
+  ProgressRecord --> ChildRef
+  ActivityEntry --> ScoreValue
+  ActivityEntry --> Duration
+  ActivityEntry --> ConfusionType
+
+  RecordActivityHandler --> ProgressRepository
+  GetWeeklyProgressHandler --> ProgressRepository
+  GetWeeklyProgressHandler --> StatCalculator
+  ExposedProgressRepository ..|> ProgressRepository : implements
+  ProgressRoutes --> RecordActivityHandler
+  ProgressRoutes --> GetWeeklyProgressHandler

@@ -1,0 +1,57 @@
+graph LR
+  subgraph Frontend
+    direction TB
+    F1["Next.js 14+ App Router"]
+    F2["TypeScript"]
+    F3["Tailwind CSS"]
+    F4["Storybook"]
+    F5["Vercel hosting"]
+  end
+
+  subgraph Backend
+    direction TB
+    B1["Kotlin 1.9+"]
+    B2["Ktor framework HTTP"]
+    B3["Exposed ORM SQL"]
+    B4["Koin injection de dépendances"]
+    B5["kotlinx.serialization JSON"]
+    B6["Railway ou Fly.io hosting"]
+  end
+
+  subgraph Security
+    direction TB
+    S1["ABAC via PolicyEvaluator"]
+    S2["JWT auth + profil"]
+    S3["BCrypt passwords"]
+    S4["PostgreSQL RLS 2e barrière"]
+    S5["AccessAuditLog traçabilité"]
+  end
+
+  subgraph Data
+    direction TB
+    D1["PostgreSQL 15 Supabase"]
+    D2["Supabase Auth"]
+    D3["Supabase Storage"]
+    D4["Supabase Realtime"]
+  end
+
+  subgraph Testing
+    direction TB
+    T1["JUnit 5 + MockK backend"]
+    T2["Jest + Testing Library frontend"]
+    T3["Playwright E2E"]
+  end
+
+  subgraph Automation
+    direction TB
+    A1["GitHub Actions CI/CD"]
+    A2["n8n workflows"]
+    A3["Brevo emails"]
+  end
+
+  Frontend --> Backend
+  Backend --> Security
+  Security --> Data
+  Testing --> Frontend
+  Testing --> Backend
+  Automation --> Backend

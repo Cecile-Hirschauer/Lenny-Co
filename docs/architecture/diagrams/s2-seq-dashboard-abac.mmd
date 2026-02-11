@@ -1,0 +1,34 @@
+sequenceDiagram
+  participant F as Frontend
+  participant MW as PolicyEnforcerMiddleware
+  participant PE as PolicyEvaluator
+  participant CR as CareRelationRepository
+  participant AL as AccessAuditLogger
+  participant H as GetDashboardHandler
+  participant DB as PostgreSQL (RLS)
+
+  F->>MW: GET /dashboard/childId (JWT Bearer)
+
+  MW->>MW: Extraire UserId + ProfileType du JWT
+  MW->>PE: evaluate(AccessScope)
+
+  PE->>CR: findActiveByObserverAndObservee(parentId, childId)
+
+  alt CareRelation ACTIVE trouvée
+    CR-->>PE: CareRelation(PARENTAL, ACTIVE)
+    PE->>PE: PermissionMatrix.isAllowed(PARENTAL, READ, DASHBOARD)
+    PE->>AL: log(AccessScope, GRANTED)
+    PE-->>MW: GRANTED
+
+    MW->>H: handle(GetDashboardDataQuery)
+    H->>DB: SELECT (RLS vérifie aussi la relation)
+    DB-->>H: Data
+    H-->>F: DashboardDTO
+  end
+
+  alt Pas de CareRelation active
+    CR-->>PE: null
+    PE->>AL: log(AccessScope, DENIED, No active relation)
+    PE-->>MW: DENIED
+    MW-->>F: HTTP 403 Forbidden
+  end
