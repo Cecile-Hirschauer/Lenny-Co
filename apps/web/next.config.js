@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Transpilation du Design System
+ output: 'standalone', // ← ajoute ça
   transpilePackages: ['@lenny/ui'],
-
   // Optimisations de sécurité et performance
   compress: true,
   poweredByHeader: false,
