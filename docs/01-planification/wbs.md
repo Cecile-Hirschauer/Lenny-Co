@@ -1,14 +1,9 @@
+> **Statut** : ✅ réalisé · **Couvre** : Bloc 1 — C1.4
+
 # WBS — découpage des tâches
 
-> **Statut** : 🔶 à reprendre
-> **Couvre** : Bloc 1 — C1.4
-> **Source à reprendre** : WBS_Lenny_Co.xlsx
+Le WBS (découpage des tâches, ≠ jalons) est maintenu dans le fichier tableur :
 
-## À couvrir
+➡️ [`WBS-Lenny-Co.xlsx`](./WBS-Lenny-Co.xlsx) (v3 — avril 2026)
 
-- Découpage des tâches (WBS ≠ jalons).
-- Renvoi vers le fichier tableur ; extrait/synthèse dans le mémoire.
-
----
-
-[À COMPLÉTER]
+Un extrait/synthèse pourra être inséré ici pour le mémoire.
